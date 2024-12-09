@@ -51,7 +51,7 @@ Cliente ArchivoCliente::leer(int posicion){
     fclose(pArchivo);
     return cliente;
 }
-void ArchivoCliente::Leer(int cantidadRegistros, Cliente *vector){
+void ArchivoCliente::leer(int cantidadRegistros, Cliente *vector){
     FILE *pArchivo = fopen(this->_nombreArchivo.c_str(), "rb");
     if(pArchivo == NULL){
         return;

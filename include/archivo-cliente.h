@@ -11,6 +11,6 @@ class ArchivoCliente : public Archivo{
         bool guardar(Cliente cliente, int posicion);
         int buscar(int IDCliente);
         Cliente leer(int posicion);       
-        void Leer(int cantidadRegistros, Cliente *vector);
+        void leer(int cantidadRegistros, Cliente *vector);
         const char* getNombreArchivo() const override;
 };

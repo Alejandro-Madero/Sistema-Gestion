@@ -40,7 +40,7 @@ int ArchivoProducto::buscar(std::string IdProducto){
     fclose(pArchivo);
     return -1;
 }
-Producto ArchivoProducto::Leer(int posicion){
+Producto ArchivoProducto::leer(int posicion){
     FILE *pArchivo = fopen(this->_nombreArchivo.c_str(), "rb");
     if(pArchivo == NULL){
         return Producto();
@@ -51,7 +51,7 @@ Producto ArchivoProducto::Leer(int posicion){
     fclose(pArchivo);
     return Producto;
 }
-void ArchivoProducto::Leer(int cantidadRegistros, Producto *vector){
+void ArchivoProducto::leer(int cantidadRegistros, Producto *vector){
     FILE *pArchivo = fopen(this->_nombreArchivo.c_str(), "rb");
     if(pArchivo == NULL){
         return;
@@ -66,3 +66,36 @@ const char* ArchivoProducto::getNombreArchivo() const {
 }
 
 
+
+Producto* ArchivoProducto::leerTodos() {
+    FILE* pArchivo = fopen(this->_nombreArchivo.c_str(), "rb");
+    if (pArchivo == NULL) {
+        return nullptr;
+    }
+    fseek(pArchivo, 0, SEEK_END);
+    int tamanoArchivo = ftell(pArchivo);
+    int cantidadRegistros = tamanoArchivo / sizeof(Producto);
+
+    //Actualizamos la cantidad de registros
+
+    this->setCantidadRegistros(false, cantidadRegistros);
+
+    if (tamanoArchivo % sizeof(Producto) != 0) {
+        fclose(pArchivo);
+        cantidadRegistros = 0;
+        return nullptr;
+    }
+    Producto* vectorProductos = new Producto[cantidadRegistros];
+    if (vectorProductos == NULL) {
+        fclose(pArchivo);
+        return nullptr;
+    }
+
+    fseek(pArchivo, 0, SEEK_SET);
+    for (int i = 0; i < cantidadRegistros; i++) {
+        fread(&vectorProductos[i], sizeof(Producto), 1, pArchivo);
+    }
+    fclose(pArchivo);
+
+    return vectorProductos;
+}

@@ -42,7 +42,7 @@ int ArchivoOrdenCompra::buscar(int IDCliente){
     fclose(pArchivo);
     return -1;
 }
-OrdenCompra ArchivoOrdenCompra::Leer(int posicion){
+OrdenCompra ArchivoOrdenCompra::leer(int posicion){
     FILE *pArchivo = fopen(this->_nombreArchivo.c_str(), "rb");
     if(pArchivo == NULL){
         return OrdenCompra();
@@ -53,7 +53,7 @@ OrdenCompra ArchivoOrdenCompra::Leer(int posicion){
     fclose(pArchivo);
     return orden;
 }
-void ArchivoOrdenCompra::Leer(int cantidadRegistros, OrdenCompra *vector){
+void ArchivoOrdenCompra::leer(int cantidadRegistros, OrdenCompra *vector){
     FILE *pArchivo = fopen(this->_nombreArchivo.c_str(), "rb");
     if(pArchivo == NULL){
         return;

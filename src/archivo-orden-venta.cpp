@@ -41,7 +41,7 @@ int ArchivoOrdenVenta::buscar(int IDCliente){
     fclose(pArchivo);
     return -1;
 }
-OrdenVenta ArchivoOrdenVenta::Leer(int posicion){
+OrdenVenta ArchivoOrdenVenta::leer(int posicion){
     FILE *pArchivo = fopen(this->_nombreArchivo.c_str(), "rb");
     if(pArchivo == NULL){
         return OrdenVenta();
@@ -52,7 +52,7 @@ OrdenVenta ArchivoOrdenVenta::Leer(int posicion){
     fclose(pArchivo);
     return orden;
 }
-void ArchivoOrdenVenta::Leer(int cantidadRegistros, OrdenVenta *vector){
+void ArchivoOrdenVenta::leer(int cantidadRegistros, OrdenVenta *vector){
     FILE *pArchivo = fopen(this->_nombreArchivo.c_str(), "rb");
     if(pArchivo == NULL){
         return;

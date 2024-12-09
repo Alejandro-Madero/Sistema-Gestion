@@ -12,8 +12,8 @@ class ArchivoProducto: public Archivo {
         bool guardar(Producto Productos);
         bool guardar(Producto Productos, int posicion);
         int buscar(std::string codigo);
-        Producto Leer(int posicion);        
-        void Leer(int cantidadRegistros, Producto *vector);
+        Producto leer(int posicion);        
+        void leer(int cantidadRegistros, Producto *vector);
         const char* getNombreArchivo() const override; 
-
+        Producto* leerTodos();
 };

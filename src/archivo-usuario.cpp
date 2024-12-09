@@ -70,7 +70,7 @@ int ArchivoUsuario::buscar(std::string busqueda, int tipoDeBusqueda){
     fclose(pArchivo);
     return -1;
 }
-Usuario ArchivoUsuario::Leer(int posicion){
+Usuario ArchivoUsuario::leer(int posicion){
     FILE *pArchivo = fopen(this->_nombreArchivo.c_str(), "rb");
     if(pArchivo == NULL){
         return Usuario();
@@ -81,7 +81,7 @@ Usuario ArchivoUsuario::Leer(int posicion){
     fclose(pArchivo);
     return usuario;
 }
-void ArchivoUsuario::Leer(int cantidadRegistros, Usuario *vector){
+void ArchivoUsuario::leer(int cantidadRegistros, Usuario *vector){
     FILE *pArchivo = fopen(this->_nombreArchivo.c_str(), "rb");
     if(pArchivo == NULL){
         return;
@@ -91,7 +91,7 @@ void ArchivoUsuario::Leer(int cantidadRegistros, Usuario *vector){
     }
     fclose(pArchivo);
 }
-Usuario* ArchivoUsuario::LeerTodos(){
+Usuario* ArchivoUsuario::leerTodos(){
     FILE *pArchivo = fopen(this->_nombreArchivo.c_str(), "rb");
     if(pArchivo == NULL){        
         return nullptr;

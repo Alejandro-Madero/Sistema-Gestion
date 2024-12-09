@@ -10,7 +10,7 @@ class ArchivoOrdenCompra : public Archivo{
         bool guardar(OrdenCompra ordenCompra);
         bool guardar(OrdenCompra ordenCompra, int posicion);
         int buscar(int idProveedor);
-        OrdenCompra Leer(int posicion);        
-        void Leer(int cantidadRegistros, OrdenCompra *vector);
+        OrdenCompra leer(int posicion);        
+        void leer(int cantidadRegistros, OrdenCompra *vector);
         const char* getNombreArchivo() const override; 
 };

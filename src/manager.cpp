@@ -29,7 +29,7 @@ bool Manager::login(std::string user, std::string pass) {
 		return false;
 	}
 
-	Usuario usuario = this->archivoUsuario.Leer(posicionUsuario);
+	Usuario usuario = this->archivoUsuario.leer(posicionUsuario);
 
     bool usuarioActivo = usuario.getEstadoUsuario();
 
@@ -88,7 +88,7 @@ bool Manager::agregarUsuario(Usuario usuario) {
 }
 
 Usuario* Manager::getListaUsuarios() {
-	return this->archivoUsuario.LeerTodos();
+	return this->archivoUsuario.leerTodos();
 }
 
 int Manager::cantidadUsuarios() {
@@ -144,7 +144,7 @@ int Manager::buscar(std::string busqueda, int tipoDeBusqueda) {
 }
 
 Usuario Manager::leerUsuario(int posicion) {
-	return this->archivoUsuario.Leer(posicion);
+	return this->archivoUsuario.leer(posicion);
 }
 
 bool Manager::reescribirUsuario(Usuario usuario, int posicion) {
@@ -178,9 +178,11 @@ bool Manager::esVendedor() {
 
 
 
-bool Manager::listaProductos(int pos, int cant, bool isProducto, bool borrado, Producto*& vector, int &vectorSize) {
+Producto* Manager::leerProductos() {
    
-	return true; 
+	Producto* productos = this->archivoProductos.leerTodos(); 
+
+	return productos; 
 }
 
 
@@ -201,10 +203,12 @@ bool Manager::guardarProductoBaseDatos(Producto producto) {
 	return false;	
 }
 
-bool Manager::borrarProducto(int pos) {
-  // return this->borrarInsumo(pos);
-
-	return true;
+bool Manager::borrarProducto(Producto& producto,int posicion) {
+	producto.setEstaBorrado(true); 
+	bool borradoCorrectamente = this->archivoProductos.guardar(producto, posicion);
+	
+	if (borradoCorrectamente) return true;
+	return false; 
 }
 bool Manager::modificarStockProducto(int stock, int pos) {
     ////return this->modificarStockInsumo(stock, pos);
@@ -212,8 +216,9 @@ bool Manager::modificarStockProducto(int stock, int pos) {
 }
 
 
-Producto Manager::getProducto(int pos) {
-	return Producto(); 
+Producto Manager::getProducto(int posicion) {
+	Producto producto = this->archivoProductos.leer(posicion);
+	return producto; 
 }
 
 
@@ -226,3 +231,7 @@ void Manager::setUsarioLoggeado(Usuario usuario) {
     this->_usuarioLoggeado = usuario;
 }
 
+
+int Manager::getCantidadProductos() {
+	return this->archivoProductos.getCantidadRegistros(); 
+};

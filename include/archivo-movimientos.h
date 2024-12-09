@@ -11,8 +11,8 @@ class ArchivoMovimientos : public Archivo{
         bool guardar(Movimientos movimientos);
         bool guardar(Movimientos movimientos, int posicion);
         int buscar(int nroMovimiento);
-        Movimientos Leer(int posicion);        
-        void Leer(int cantidadRegistros, Movimientos *vector);
+        Movimientos leer(int posicion);        
+        void leer(int cantidadRegistros, Movimientos *vector);
         const char* getNombreArchivo() const override; 
 
 };

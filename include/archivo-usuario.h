@@ -10,9 +10,9 @@ class ArchivoUsuario : public Archivo{
         bool guardar(Usuario usuario);
         bool guardar(Usuario usuario, int posicion);
         int buscar(std::string busqueda, int tipoDeBuqueda);        
-        Usuario Leer(int posicion);
-        Usuario* LeerTodos();              
-        void Leer(int cantidadRegistros, Usuario *vector);    
+        Usuario leer(int posicion);
+        Usuario* leerTodos();              
+        void leer(int cantidadRegistros, Usuario *vector);    
         const char* getNombreArchivo() const override; 
 
     private:        

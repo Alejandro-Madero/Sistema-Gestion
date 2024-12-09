@@ -772,7 +772,7 @@ int UiConsole::mostrarMenuModificacionUsuario(Usuario& usuario)
 
 // funcionalidades producto
 
-std::string UiConsole::pedirCodigo()
+std::string UiConsole::pedirCodigoProducto()
 {
 	bool salirDelMenu = false;
 
@@ -817,44 +817,40 @@ Producto UiConsole::agregarProducto(std::string codigo, bool isInsumo)
 	}
 	
 	bool stockValido = false; 
-
-	while (!stockValido) {
-		std::cout << "Ingrese stock del producto: ";
+	
+	while (!stockValido ) {
+		std::cout << "Ingrese el stock del producto: ";
 		std::getline(std::cin, stock);
-		stockValido = Producto::validarStockProducto(stock);
+		stockValido = Producto::validarStockYPrecioProducto(stock);
 	}
-
-	Producto producto(codigo, descripcion, std::stoi(stock));
+	bool precioValido = false;
+	std::string precio; 
+	while (!precioValido) {
+		std::cout << "Ingrese el precio del producto: ";
+		std::getline(std::cin,precio);
+		precioValido = Producto::validarStockYPrecioProducto(precio);
+	}
+	
+	Producto producto(codigo, descripcion, std::stoi(stock), std::stoi(precio));
 	return producto;
 }
 
-void UiConsole::mostrarProductos(Producto* Productos, int cantidad)
+void UiConsole::mostrarProductos(Producto* productos, int cantidadProductos)
 {
-	std::cout << std::left;
-	std::cout << "┌────────────────────┬────────────────────┬────────────────────┬────────────────────┐";
-	std::cout << std::endl;
-	std::cout << std::setw(23) << "│ codigo";
-	std::cout << std::setw(23) << "│ descripcion";
-	std::cout << std::setw(23) << "│ stock";
-	std::cout << std::setw(23) << "│";
-	std::cout << std::endl;
-	std::cout << "├────────────────────┼────────────────────┼────────────────────┼────────────────────┤";
-	std::cout << std::endl;
+	std::cout << R"(
++--------------+----------------------------------+-------------+-------------------+
+|    Codigo    |          Descripcion             |    Stock    |      Precio       | 
++--------------+----------------------------------+-------------+-------------------+)"
+<< std::endl;
 
-	for (int i = 0; i < cantidad; i++)
-	{
-		if (!Productos[i].getEstaBorrado())
-		{
-			std::cout << std::setw(23) << "│ " + Productos[i].getCodigo();
-			std::cout << std::setw(23) << "│ " + Productos[i].getDescripcion();
-			std::cout << std::setw(23) << "│ " + std::to_string(Productos[i].getStock());
-			std::cout << "│";
-			std::cout << std::endl;
-		}
+	for (size_t i = 0; i < cantidadProductos; i++) {
+		std::cout << "| " << std::left << std::setw(13) << productos[i].getCodigo(); 
+		std::cout << "| " << std::left << std::setw(33) << productos[i].getDescripcion();
+		std::cout << "| " << std::left << std::setw(12) << productos[i].getStock();
+		std::cout << "| " << std::left<<"$" << std::setw(17) << productos[i].getPrecio() << "|";
+		std::cout <<std::endl;
 	}
-	std::cout << "└────────────────────┴────────────────────┴────────────────────┴────────────────────┘";
-	std::cout << std::endl;
-	std::cout << std::endl;
+
 }
 
 int UiConsole::stockProducto()

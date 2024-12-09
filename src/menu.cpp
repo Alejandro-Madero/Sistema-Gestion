@@ -74,7 +74,7 @@ void Menu::menuProductos(Manager& manager, UiConsole& ui)
 				return;
 			}
 
-			std::string codigoProducto = ui.pedirCodigo();
+			std::string codigoProducto = ui.pedirCodigoProducto();
 			if (codigoProducto == "")
 			{
 				std::cout << UiConsole::ROJO << "El producto no pudo ser agregado correctamente. Intentelo nuevamente" << UiConsole::RESET << std::endl; 
@@ -82,8 +82,8 @@ void Menu::menuProductos(Manager& manager, UiConsole& ui)
 				return;
 			}
 
-			int pos = manager.buscarProducto(codigoProducto);
-			if (pos >= 0)
+			int posicionProducto = manager.buscarProducto(codigoProducto);
+			if (posicionProducto >= 0)
 			{
 				std::cout << UiConsole::ROJO << "El codigo de producto ya existe. Intentelo nuevamente." << UiConsole::RESET << std::endl;
 				ui.pausa();
@@ -116,44 +116,37 @@ void Menu::menuProductos(Manager& manager, UiConsole& ui)
 				ui.pausa();
 				return;
 			}
-			std::string codigoProducto = ui.pedirCodigo();
+			std::string codigoProducto = ui.pedirCodigoProducto();
 			if (codigoProducto == "")
 			{
+				std::cout << UiConsole::ROJO << "El producto no pudo ser borrado correctamente. Intentelo nuevamente" << UiConsole::RESET << std::endl;
 				ui.pausa();
 				return;
 			}
-			int pos = manager.buscarProducto(codigoProducto);
-			if (pos == -3)
+			
+			int posicionProducto = manager.buscarProducto(codigoProducto);
+			if (posicionProducto < 0)
 			{
-				std::cout << "El codigo se esta usando como insumo" << std::endl;
+				std::cout << UiConsole::ROJO <<  "El codigo de producto ingresado no existe. Intentelo nuevamente." << UiConsole::RESET<< std::endl;
 				ui.pausa();
 				return;
 			}
-			if (pos == -2)
-			{
-				std::cout << "El codigo esta mal escrito y no cumple con los criterios" << std::endl;
-				ui.pausa();
+
+			Producto producto = manager.getProducto(posicionProducto); 
+
+			if (producto.getEstaBorrado()) {
+				std::cout << UiConsole::ROJO << "El Producto ya se encuentra eliminado." << UiConsole::RESET <<std::endl;
+				ui.pausa(); 
 				return;
 			}
-			if (pos == -4)
+
+			if (manager.borrarProducto(producto,posicionProducto))
 			{
-				std::cout << "El producto ya esta borrado" << std::endl;
-				ui.pausa();
-				return;
-			}
-			if (pos < 0)
-			{
-				std::cout << "El producto no existe" << std::endl;
-				ui.pausa();
-				return;
-			}
-			if (manager.borrarProducto(pos))
-			{
-				std::cout << "El Producto se borro correctamente" << std::endl;
+				std::cout << UiConsole::VERDE <<"El Producto se borro correctamente." << UiConsole::RESET << std::endl;
 			}
 			else
 			{
-				std::cout << "No se pudo borrar el Producto" << std::endl;
+				std::cout << UiConsole::ROJO << "No se pudo borrar el producto. Intentelo nuevamente." << UiConsole::RESET <<  std::endl;
 			}
 			ui.pausa();
 			return;
@@ -167,7 +160,7 @@ void Menu::menuProductos(Manager& manager, UiConsole& ui)
 				ui.pausa();
 				return;
 			}
-			std::string codigo = ui.pedirCodigo();
+			std::string codigo = ui.pedirCodigoProducto();
 			if (codigo == "")
 			{
 				std::cout << "codigo incorrecto" << std::endl;
@@ -226,7 +219,7 @@ void Menu::menuProductos(Manager& manager, UiConsole& ui)
 	auto stockProducto = [&]() -> void
 		{
 			ui.limpiarConsola();
-			std::string codigoProducto = ui.pedirCodigo();
+			std::string codigoProducto = ui.pedirCodigoProducto();
 			if (codigoProducto == "")
 			{
 				ui.pausa();
@@ -290,24 +283,20 @@ void Menu::menuProductos(Manager& manager, UiConsole& ui)
 		};
 	auto listaProductos = [&]() -> void
 		{
-			ui.limpiarConsola();
-			int cantidad = 0;
-			Producto* productos = nullptr;
-			if (!manager.listaProductos(0, 0, true, false, productos, cantidad))
-			{
-				std::cout << "No hay Productos" << std::endl;
-				ui.pausa();
-				return;
-			}
-			ui.mostrarProductos(productos, cantidad);
-			delete[] productos;
+			ui.limpiarConsola();			
+			
+			Producto* productos = manager.leerProductos(); 
+			int cantidadProductos = manager.getCantidadProductos(); 
+
+			ui.mostrarProductos(productos, cantidadProductos); 
+			
 			ui.pausa();
-			return;
+			return; 
 		};
 	auto buscarProducto = [&]() -> void
 		{
 			ui.limpiarConsola();
-			std::string codigoProducto = ui.pedirCodigo();
+			std::string codigoProducto = ui.pedirCodigoProducto();
 			if (codigoProducto == "")
 			{
 				ui.pausa();
@@ -855,6 +844,7 @@ void Menu::menuUsuarios(Manager& manager, UiConsole& ui)
 			std::cout << std::endl;
 
 			ui.pausa();
+			
 			return;
 		};
 	auto recuperarUsuario = [&]() {

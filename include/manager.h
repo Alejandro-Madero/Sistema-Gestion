@@ -48,14 +48,14 @@ public:
 	
 	int buscarProducto(std::string codigo);
 	bool guardarProductoBaseDatos(Producto Producto);
-	bool borrarProducto(int pos);	
-	bool modificarProducto(Producto Producto, int pos);
-	bool modificarStockProducto(int stock, int pos);
-	
+	bool borrarProducto(Producto& producto, int posicion);	
+	bool modificarProducto(Producto Producto, int posicion);
+	bool modificarStockProducto(int stock, int posicion);
+	int getCantidadProductos(); 
 	
 	
 	Producto getProducto(int pos);
-	bool listaProductos(int pos, int cantidad, bool isProducto, bool borrado, Producto*& vector, int& vectorSize);
+	Producto* leerProductos();
 	
 	
 private:

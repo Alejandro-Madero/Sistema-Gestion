@@ -16,8 +16,7 @@ class UiConsole {
 
    UiConsole();
    void setUsuario(std::string usuario);
-   int mostrarMenuPrincipal();
-   int mostrarMenuInsumos();
+   int mostrarMenuPrincipal();   
    int mostrarMenuProductos();
    int mostrarMenuProveedores();
    int mostrarMenuClientes();
@@ -36,29 +35,19 @@ class UiConsole {
 
    //funcionalidades del menu usuarios
    Usuario agregarUsuario(std::string nombreUsuario, Manager& manager);
-   int mostrarMenuModificacionUsuario(Usuario& usuario);   
-   Usuario agregarUsuario(std::string nombreUsuario);
-   void modificarUsuario();
-   void eliminarUsuario();
-   void contraseniaRoot();
-   void roles();
-   void bloquearDesbloquear();
-   void mostrarUsuarios();
-   void mostrarRoles();
-   void mostrarRoles(std::string& nombreUsuario);
+   int mostrarMenuModificacionUsuario(Usuario& usuario);     
    void listarUsuario(std::string nombreUsuario,char tipoUsuario, std::string email, std::string telefono);
    int menuEditarMiPerfil(Usuario& usuarioLoggeado);
-   void tipoUsuario(std::string tipoUsuario);
    void procesarActualizacionUsuario(Manager& manager, Usuario& usuario, int posicionUsuario, std::string campo);
    void mostrarPerfil(Usuario& usuario, bool root);
    std::string mostrarRol(char rol); 
 
-//funcionalidades insumo-producto  (le mandaba Leontief jaja)
-   std::string pedirCodigo();
+
+   std::string pedirCodigoProducto();
    Producto agregarProducto(std::string codigo,bool isInsumo);
    void mostrarProductos(Producto* insumos,int cantidad);
    int stockProducto();
-   bool mostrarComposicion(Producto* insumos,int cantidad,Producto* producto);
+ 
 
   private:
    std::string _nombreUsuario;

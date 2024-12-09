@@ -7,10 +7,11 @@ Producto::Producto() {
 	this->setStock(0);
 	this->setEstaBorrado(false);
 };
-Producto::Producto(std::string codigo, std::string descripcion, int stock) {
+Producto::Producto(std::string codigo, std::string descripcion, int stock, int precio) {
 	this->setDescripcion(descripcion);
 	this->setCodigo(codigo);
 	this->setStock(stock);
+	this->setPrecio(precio);
 	this->setEstaBorrado(false);
 }
 
@@ -66,6 +67,22 @@ bool Producto::validarDescripcionProducto(std::string descripcion) {
 	return true;
 	
 }
- bool Producto::validarStockProducto(std::string stock) {
+ bool Producto::validarStockYPrecioProducto(std::string stock) {
 	 return std::all_of(stock.begin(), stock.end(), ::isdigit);
  };
+
+ void Producto::setPrecio(int precio) {
+	 this->_precio = precio; 
+ }
+
+ int Producto::getPrecio() {
+	 return this->_precio;
+ }
+
+ void Producto::disminuirStock(int ventas) {
+	 this->_stock = this->_stock - ventas; 
+ }
+
+ void Producto::aumentarStock(int ingresos) {
+	 this->_stock = this->_stock + ingresos;
+ }

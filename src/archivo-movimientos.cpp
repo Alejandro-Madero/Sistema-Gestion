@@ -42,7 +42,7 @@ int ArchivoMovimientos::buscar(int IDCliente){
     fclose(pArchivo);
     return -1;
 }
-Movimientos ArchivoMovimientos::Leer(int posicion){
+Movimientos ArchivoMovimientos::leer(int posicion){
     FILE *pArchivo = fopen(this->_nombreArchivo.c_str(), "rb");
     if(pArchivo == NULL){
         return Movimientos();
@@ -53,7 +53,7 @@ Movimientos ArchivoMovimientos::Leer(int posicion){
     fclose(pArchivo);
     return movimientos;
 }
-void ArchivoMovimientos::Leer(int cantidadRegistros, Movimientos *vector){
+void ArchivoMovimientos::leer(int cantidadRegistros, Movimientos *vector){
     FILE *pArchivo = fopen(this->_nombreArchivo.c_str(), "rb");
     if(pArchivo == NULL){
         return;
