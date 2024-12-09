@@ -72,7 +72,7 @@
     <ClCompile Include="src\menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="archivo.cpp">
+    <ClCompile Include="src\archivo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -131,7 +131,7 @@
     <ClInclude Include="include\producto.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="archivo.h">
+    <ClInclude Include="include\archivo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

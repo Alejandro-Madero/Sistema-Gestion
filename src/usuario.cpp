@@ -14,14 +14,7 @@ Usuario::Usuario(char rol, std::string pass, std::string nombreUsuario, Fecha fe
 
 	this->setRol(rol);
 	strcpy(this->_nombreUsuario, nombreUsuario.c_str());
-	strcpy(this->_password, pass.c_str());
-	this->_id = id;
-	this->setTelefono(telefono);
-	this->tipoFJ = tipoFJ;
-	strcpy(this->_nombre, nombre.c_str());
-	strcpy(this->_direccion, direccion.c_str());
-	strcpy(this->_email, email.c_str());
-	this->_fechaIngreso = Fecha();
+	strcpy(this->_password, pass.c_str());	
 	this->setEstadoUsuario(true);
 }
 

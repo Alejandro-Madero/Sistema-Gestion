@@ -1,20 +1,12 @@
 #include "../include/archivo-orden-venta.h"
 
-ArchivoOrdenVenta::ArchivoOrdenVenta(){
+ArchivoOrdenVenta::ArchivoOrdenVenta() : Archivo(sizeof(OrdenVenta), "db/orden-venta.dat") {}
+ArchivoOrdenVenta::ArchivoOrdenVenta(size_t tamanioRegistro, std::string nombreArchivo) : Archivo(tamanioRegistro, nombreArchivo){
 
-}
-
-bool ArchivoOrdenVenta::crear(){
-    FILE *pArchivo = fopen(_nombreArchivo, "wb+");
-    if(pArchivo == NULL){
-        return false;
-    }
-    fclose(pArchivo);
-    return true;
 }
 
 bool ArchivoOrdenVenta::guardar(OrdenVenta orden){
-    FILE *pArchivo = fopen(_nombreArchivo, "ab");
+    FILE *pArchivo = fopen(this->_nombreArchivo.c_str(), "ab");
     if(pArchivo == NULL){
         return false;
     }
@@ -22,9 +14,8 @@ bool ArchivoOrdenVenta::guardar(OrdenVenta orden){
     fclose(pArchivo);
     return ok;
 }
-
 bool ArchivoOrdenVenta::guardar(OrdenVenta orden, int posicion){
-    FILE *pArchivo = fopen(_nombreArchivo, "rb+");
+    FILE *pArchivo = fopen(this->_nombreArchivo.c_str(), "rb+");
     if(pArchivo == NULL){
         return false;
     }
@@ -33,9 +24,8 @@ bool ArchivoOrdenVenta::guardar(OrdenVenta orden, int posicion){
     fclose(pArchivo);
     return ok;
 }
-
 int ArchivoOrdenVenta::buscar(int IDCliente){
-    FILE *pArchivo = fopen(_nombreArchivo, "rb");
+    FILE *pArchivo = fopen(this->_nombreArchivo.c_str(), "rb");
     if(pArchivo == NULL){
         return -1;
     }
@@ -51,9 +41,8 @@ int ArchivoOrdenVenta::buscar(int IDCliente){
     fclose(pArchivo);
     return -1;
 }
-
-OrdenVenta ArchivoOrdenVenta::leer(int posicion){
-    FILE *pArchivo = fopen(_nombreArchivo, "rb");
+OrdenVenta ArchivoOrdenVenta::Leer(int posicion){
+    FILE *pArchivo = fopen(this->_nombreArchivo.c_str(), "rb");
     if(pArchivo == NULL){
         return OrdenVenta();
     }
@@ -63,20 +52,8 @@ OrdenVenta ArchivoOrdenVenta::leer(int posicion){
     fclose(pArchivo);
     return orden;
 }
-
-int ArchivoOrdenVenta::CantidadRegistros(){
-    FILE *pArchivo = fopen(_nombreArchivo, "rb");
-    if(pArchivo == NULL){
-        return 0;
-    }
-    fseek(pArchivo, 0, SEEK_END);
-    int cantidadRegistros = ftell(pArchivo) / sizeof(OrdenVenta);
-    fclose(pArchivo);
-    return cantidadRegistros;
-}
-
-void ArchivoOrdenVenta::leer(int cantidadRegistros, OrdenVenta *vector){
-    FILE *pArchivo = fopen(_nombreArchivo, "rb");
+void ArchivoOrdenVenta::Leer(int cantidadRegistros, OrdenVenta *vector){
+    FILE *pArchivo = fopen(this->_nombreArchivo.c_str(), "rb");
     if(pArchivo == NULL){
         return;
     }
@@ -85,4 +62,6 @@ void ArchivoOrdenVenta::leer(int cantidadRegistros, OrdenVenta *vector){
     }
     fclose(pArchivo);
 }
-
+const char* ArchivoOrdenVenta::getNombreArchivo() const {
+    return "db/orden-venta.dat";
+}

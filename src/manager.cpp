@@ -4,12 +4,12 @@
 
 Manager::Manager() {
    this->_cacheListadoUsuarios = nullptr;  
-   this->archivoCliente = ArchivoCliente();   
+  // this->archivoCliente = ArchivoCliente();
    this->archivoMovimientos = ArchivoMovimientos();
    this->archivoOrdenCompra = ArchivoOrdenCompra(); 
    this->archivoOrdenVenta = ArchivoOrdenVenta();   
    this->archivoUsuario = ArchivoUsuario();
-   if (archivoUsuario.getCantidadRegistros() < 1) {
+   if (this->archivoUsuario.getCantidadRegistros() < 10) {
       if (_mkdir("db") != 0) {
         return; // Directorio creado exitosamente
       } 
@@ -29,7 +29,7 @@ bool Manager::login(std::string user, std::string pass) {
 		return false;
 	}
 
-	Usuario usuario = this->archivoUsuario.leer(posicionUsuario);
+	Usuario usuario = this->archivoUsuario.Leer(posicionUsuario);
 
     bool usuarioActivo = usuario.getEstadoUsuario();
 
@@ -88,7 +88,7 @@ bool Manager::agregarUsuario(Usuario usuario) {
 }
 
 Usuario* Manager::getListaUsuarios() {
-	return this->archivoUsuario.leerTodos();
+	return this->archivoUsuario.LeerTodos();
 }
 
 int Manager::cantidadUsuarios() {
@@ -144,7 +144,7 @@ int Manager::buscar(std::string busqueda, int tipoDeBusqueda) {
 }
 
 Usuario Manager::leerUsuario(int posicion) {
-	return this->archivoUsuario.leer(posicion);
+	return this->archivoUsuario.Leer(posicion);
 }
 
 bool Manager::reescribirUsuario(Usuario usuario, int posicion) {

@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="archivo.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\archivo-cliente.cpp" />
     <ClCompile Include="src\archivo-movimientos.cpp" />
@@ -27,6 +26,7 @@
     <ClCompile Include="src\archivo-orden-venta.cpp" />
     <ClCompile Include="src\archivo-productos.cpp" />
     <ClCompile Include="src\archivo-usuario.cpp" />
+    <ClCompile Include="src\archivo.cpp" />
     <ClCompile Include="src\cliente.cpp" />
     <ClCompile Include="src\fecha.cpp" />
     <ClCompile Include="src\manager.cpp" />
@@ -41,13 +41,13 @@
     <ClCompile Include="src\usuario.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="archivo.h" />
     <ClInclude Include="include\archivo-cliente.h" />
     <ClInclude Include="include\archivo-movimientos.h" />
     <ClInclude Include="include\archivo-orden-compra.h" />
     <ClInclude Include="include\archivo-orden-venta.h" />
     <ClInclude Include="include\archivo-productos.h" />
     <ClInclude Include="include\archivo-usuario.h" />
+    <ClInclude Include="include\archivo.h" />
     <ClInclude Include="include\cliente.h" />
     <ClInclude Include="include\fecha.h" />
     <ClInclude Include="include\manager.h" />

@@ -1,18 +1,18 @@
 #pragma once
 #include <string>
 #include "movimientos.h"
+#include "archivo.h"
 
-class ArchivoMovimientos{
-    private:
-        const char * _nombreArchivo  = "db/movimientos.dat";
+class ArchivoMovimientos : public Archivo{ 
         
     public:
         ArchivoMovimientos();
-        bool crear();
+        ArchivoMovimientos(size_t tamanioRegistro, std::string nombreArchivo);        
         bool guardar(Movimientos movimientos);
         bool guardar(Movimientos movimientos, int posicion);
         int buscar(int nroMovimiento);
-        Movimientos leer(int posicion);
-        int CantidadRegistros();
-        void leer(int cantidadRegistros, Movimientos *vector);
+        Movimientos Leer(int posicion);        
+        void Leer(int cantidadRegistros, Movimientos *vector);
+        const char* getNombreArchivo() const override; 
+
 };

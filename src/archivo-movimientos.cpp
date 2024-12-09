@@ -1,20 +1,13 @@
 #include "../include/archivo-movimientos.h"
 
-ArchivoMovimientos::ArchivoMovimientos(){
+ArchivoMovimientos::ArchivoMovimientos() : Archivo(sizeof(Movimientos), "db/movimientos.dat") {
 
 }
+ArchivoMovimientos::ArchivoMovimientos(size_t tamanioRegistro, std::string nombreArchivo) : Archivo(tamanioRegistro, nombreArchivo){
 
-bool ArchivoMovimientos::crear(){
-    FILE *pArchivo = fopen(_nombreArchivo, "wb+");
-    if(pArchivo == NULL){
-        return false;
-    }
-    fclose(pArchivo);
-    return true;
 }
-
 bool ArchivoMovimientos::guardar(Movimientos movimientos){
-    FILE *pArchivo = fopen(_nombreArchivo, "ab");
+    FILE *pArchivo = fopen(this->_nombreArchivo.c_str(), "ab");
     if(pArchivo == NULL){
         return false;
     }
@@ -22,9 +15,8 @@ bool ArchivoMovimientos::guardar(Movimientos movimientos){
     fclose(pArchivo);
     return ok;
 }
-
 bool ArchivoMovimientos::guardar(Movimientos movimientos, int posicion){
-    FILE *pArchivo = fopen(_nombreArchivo, "rb+");
+    FILE *pArchivo = fopen(this->_nombreArchivo.c_str(), "rb+");
     if(pArchivo == NULL){
         return false;
     }
@@ -33,9 +25,8 @@ bool ArchivoMovimientos::guardar(Movimientos movimientos, int posicion){
     fclose(pArchivo);
     return ok;
 }
-
 int ArchivoMovimientos::buscar(int IDCliente){
-    FILE *pArchivo = fopen(_nombreArchivo, "rb");
+    FILE *pArchivo = fopen(this->_nombreArchivo.c_str(), "rb");
     if(pArchivo == NULL){
         return -1;
     }
@@ -51,9 +42,8 @@ int ArchivoMovimientos::buscar(int IDCliente){
     fclose(pArchivo);
     return -1;
 }
-
-Movimientos ArchivoMovimientos::leer(int posicion){
-    FILE *pArchivo = fopen(_nombreArchivo, "rb");
+Movimientos ArchivoMovimientos::Leer(int posicion){
+    FILE *pArchivo = fopen(this->_nombreArchivo.c_str(), "rb");
     if(pArchivo == NULL){
         return Movimientos();
     }
@@ -63,20 +53,8 @@ Movimientos ArchivoMovimientos::leer(int posicion){
     fclose(pArchivo);
     return movimientos;
 }
-
-int ArchivoMovimientos::CantidadRegistros(){
-    FILE *pArchivo = fopen(_nombreArchivo, "rb");
-    if(pArchivo == NULL){
-        return 0;
-    }
-    fseek(pArchivo, 0, SEEK_END);
-    int cantidadRegistros = ftell(pArchivo) / sizeof(Movimientos);
-    fclose(pArchivo);
-    return cantidadRegistros;
-}
-
-void ArchivoMovimientos::leer(int cantidadRegistros, Movimientos *vector){
-    FILE *pArchivo = fopen(_nombreArchivo, "rb");
+void ArchivoMovimientos::Leer(int cantidadRegistros, Movimientos *vector){
+    FILE *pArchivo = fopen(this->_nombreArchivo.c_str(), "rb");
     if(pArchivo == NULL){
         return;
     }
@@ -85,4 +63,6 @@ void ArchivoMovimientos::leer(int cantidadRegistros, Movimientos *vector){
     }
     fclose(pArchivo);
 }
-
+const char* ArchivoMovimientos::getNombreArchivo() const {
+    return "db/movimientos.dat";
+}

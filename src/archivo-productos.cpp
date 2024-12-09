@@ -1,19 +1,11 @@
 #include "../include/archivo-productos.h"
+
 #include <cstring>
 
-ArchivoProducto::ArchivoProducto() {}
-
-bool ArchivoProducto::crear(){
-    FILE *pArchivo = fopen(_nombreArchivo, "wb+");
-    if(pArchivo == NULL){
-        return false;
-    }
-    fclose(pArchivo);
-    return true;
-}
-
+ArchivoProducto::ArchivoProducto() : Archivo(sizeof(Producto), "db/productos.dat") {}
+ArchivoProducto::ArchivoProducto(size_t tamanioRegistro, std::string nombreArchivo): Archivo(tamanioRegistro, nombreArchivo) {}
 bool ArchivoProducto::guardar(Producto Producto){
-    FILE *pArchivo = fopen(_nombreArchivo, "ab");
+    FILE *pArchivo = fopen(this->_nombreArchivo.c_str(), "ab");
     if(pArchivo == NULL){
         return false;
     }
@@ -21,9 +13,8 @@ bool ArchivoProducto::guardar(Producto Producto){
     fclose(pArchivo);
     return ok;
 }
-
 bool ArchivoProducto::guardar(Producto Producto, int posicion){
-    FILE *pArchivo = fopen(_nombreArchivo, "rb+");
+    FILE *pArchivo = fopen(this->_nombreArchivo.c_str(), "rb+");
     if(pArchivo == NULL){
         return false;
     }
@@ -32,9 +23,8 @@ bool ArchivoProducto::guardar(Producto Producto, int posicion){
     fclose(pArchivo);
     return ok;
 }
-
 int ArchivoProducto::buscar(std::string IdProducto){
-    FILE *pArchivo = fopen(_nombreArchivo, "rb");
+    FILE *pArchivo = fopen(this->_nombreArchivo.c_str(), "rb");
     if(pArchivo == NULL){
         return -1;
     }
@@ -50,9 +40,8 @@ int ArchivoProducto::buscar(std::string IdProducto){
     fclose(pArchivo);
     return -1;
 }
-
-Producto ArchivoProducto::leer(int posicion){
-    FILE *pArchivo = fopen(_nombreArchivo, "rb");
+Producto ArchivoProducto::Leer(int posicion){
+    FILE *pArchivo = fopen(this->_nombreArchivo.c_str(), "rb");
     if(pArchivo == NULL){
         return Producto();
     }
@@ -62,20 +51,8 @@ Producto ArchivoProducto::leer(int posicion){
     fclose(pArchivo);
     return Producto;
 }
-
-int ArchivoProducto::CantidadRegistros(){
-    FILE *pArchivo = fopen(_nombreArchivo, "rb");
-    if(pArchivo == NULL){
-        return 0;
-    }
-    fseek(pArchivo, 0, SEEK_END);
-    int cantidadRegistros = ftell(pArchivo) / sizeof(Producto);
-    fclose(pArchivo);
-    return cantidadRegistros;
-}
-
-void ArchivoProducto::leer(int cantidadRegistros, Producto *vector){
-    FILE *pArchivo = fopen(_nombreArchivo, "rb");
+void ArchivoProducto::Leer(int cantidadRegistros, Producto *vector){
+    FILE *pArchivo = fopen(this->_nombreArchivo.c_str(), "rb");
     if(pArchivo == NULL){
         return;
     }
@@ -83,4 +60,7 @@ void ArchivoProducto::leer(int cantidadRegistros, Producto *vector){
         fread(&vector[i], sizeof(Producto), 1, pArchivo);
     }
     fclose(pArchivo);
+}
+const char* ArchivoProducto::getNombreArchivo() const {
+    return "db/productos.dat"; 
 }

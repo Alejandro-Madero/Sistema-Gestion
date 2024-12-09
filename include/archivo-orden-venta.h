@@ -1,18 +1,16 @@
 #pragma once
 #include <string>
 #include "orden-venta.h"
+#include "archivo.h"
 
-class ArchivoOrdenVenta{
-    private:
-        const char * _nombreArchivo  = "db/orden-venta.dat";
-        
+class ArchivoOrdenVenta : public Archivo{        
     public:
-        ArchivoOrdenVenta();
-        bool crear();
+        ArchivoOrdenVenta(); 
+        ArchivoOrdenVenta(size_t tamanioRegistro, std::string nombreArchivo);      
         bool guardar(OrdenVenta ordenventa);
         bool guardar(OrdenVenta ordenventa, int posicion);
         int buscar(int idCliente);
-        OrdenVenta leer(int posicion);
-        int CantidadRegistros();
-        void leer(int cantidadRegistros, OrdenVenta *vector);
+        OrdenVenta Leer(int posicion);        
+        void Leer(int cantidadRegistros, OrdenVenta *vector);
+        const char* getNombreArchivo() const override; 
 };

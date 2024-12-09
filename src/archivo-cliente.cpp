@@ -1,19 +1,11 @@
 #include "../include/archivo-cliente.h"
 
-ArchivoCliente::ArchivoCliente(){
+ArchivoCliente::ArchivoCliente() : Archivo(sizeof(Cliente), "db/cliente.dat") {}
+ArchivoCliente::ArchivoCliente(size_t tamanioRegistro, std::string nombreArchivo) : Archivo(tamanioRegistro, nombreArchivo){
 
-}
-
-bool ArchivoCliente::crear(){
-    FILE *pArchivo = fopen(_nombreArchivo, "wb");
-    if(pArchivo == NULL){
-        return false;
-    }
-    fclose(pArchivo);
-    return true;
 }
 bool ArchivoCliente::guardar(Cliente cliente){
-    FILE *pArchivo = fopen(_nombreArchivo, "ab");
+    FILE *pArchivo = fopen(this->_nombreArchivo.c_str(), "ab");
     if(pArchivo == NULL){
         return false;
     }
@@ -21,9 +13,8 @@ bool ArchivoCliente::guardar(Cliente cliente){
     fclose(pArchivo);
     return ok;
 }
-
 bool ArchivoCliente::guardar(Cliente cliente, int posicion){
-    FILE *pArchivo = fopen(_nombreArchivo, "rb+");
+    FILE *pArchivo = fopen(this->_nombreArchivo.c_str(), "rb+");
     if(pArchivo == NULL){
         return false;
     }
@@ -32,9 +23,8 @@ bool ArchivoCliente::guardar(Cliente cliente, int posicion){
     fclose(pArchivo);
     return ok;
 }
-
 int ArchivoCliente::buscar(int IDCliente){
-    FILE *pArchivo = fopen(_nombreArchivo, "rb");
+    FILE *pArchivo = fopen(this->_nombreArchivo.c_str(), "rb");
     if(pArchivo == NULL){
         return -1;
     }
@@ -50,9 +40,8 @@ int ArchivoCliente::buscar(int IDCliente){
     fclose(pArchivo);
     return -1;
 }
-
 Cliente ArchivoCliente::leer(int posicion){
-    FILE *pArchivo = fopen(_nombreArchivo, "rb");
+    FILE *pArchivo = fopen(this->_nombreArchivo.c_str(), "rb");
     if(pArchivo == NULL){
         return Cliente();
     }
@@ -62,20 +51,8 @@ Cliente ArchivoCliente::leer(int posicion){
     fclose(pArchivo);
     return cliente;
 }
-
-int ArchivoCliente::CantidadRegistros(){
-    FILE *pArchivo = fopen(_nombreArchivo, "rb");
-    if(pArchivo == NULL){
-        return 0;
-    }
-    fseek(pArchivo, 0, SEEK_END);
-    int cantidadRegistros = ftell(pArchivo) / sizeof(Cliente);
-    fclose(pArchivo);
-    return cantidadRegistros;
-}
-
-void ArchivoCliente::leer(int cantidadRegistros, Cliente *vector){
-    FILE *pArchivo = fopen(_nombreArchivo, "rb");
+void ArchivoCliente::Leer(int cantidadRegistros, Cliente *vector){
+    FILE *pArchivo = fopen(this->_nombreArchivo.c_str(), "rb");
     if(pArchivo == NULL){
         return;
     }
@@ -84,4 +61,6 @@ void ArchivoCliente::leer(int cantidadRegistros, Cliente *vector){
     }
     fclose(pArchivo);
 }
-
+const char* ArchivoCliente::getNombreArchivo() const {
+    return "db/cliente.dat";
+}

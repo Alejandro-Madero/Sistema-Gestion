@@ -1,19 +1,12 @@
 #include "../include/archivo-usuario.h"
 #include <cstdio>
-ArchivoUsuario::ArchivoUsuario(){
-    this->_cantidadRegistros = this->calcularCantidadRegistros();     
+
+ArchivoUsuario::ArchivoUsuario() : Archivo(sizeof(Usuario),"db/usuario.dat" ) {};
+ArchivoUsuario::ArchivoUsuario(size_t tamanioRegistro, std::string nombreArchivo) : Archivo(tamanioRegistro, nombreArchivo) {
 }
 
-bool ArchivoUsuario::crear(){
-    FILE *pArchivo = fopen(_nombreArchivo, "wb+");
-    if(pArchivo == NULL){
-        return false;
-    }
-    fclose(pArchivo);
-    return true;
-}
 bool ArchivoUsuario::guardar(Usuario usuario){
-    FILE *pArchivo = fopen(_nombreArchivo, "ab");
+    FILE *pArchivo = fopen(this->_nombreArchivo.c_str(), "ab");
     if(pArchivo == NULL){
         return false;
     }
@@ -24,9 +17,8 @@ bool ArchivoUsuario::guardar(Usuario usuario){
     fclose(pArchivo);
     return ok;
 }
-
 bool ArchivoUsuario::guardar(Usuario usuario, int posicion){
-    FILE *pArchivo = fopen(_nombreArchivo, "rb+");
+    FILE *pArchivo = fopen(this->_nombreArchivo.c_str(), "rb+");
     if(pArchivo == NULL){
         return false;
     }
@@ -35,7 +27,6 @@ bool ArchivoUsuario::guardar(Usuario usuario, int posicion){
     fclose(pArchivo);
     return ok;
 }
-
 int ArchivoUsuario::buscar(std::string busqueda, int tipoDeBusqueda){
 
     // tipoDeBusqueda indica lo que queremos buscar:
@@ -43,7 +34,7 @@ int ArchivoUsuario::buscar(std::string busqueda, int tipoDeBusqueda){
     // 2- email
     // 3- telefono
 
-    FILE *pArchivo = fopen(_nombreArchivo, "rb");
+    FILE *pArchivo = fopen(this->_nombreArchivo.c_str(), "rb");
     if(pArchivo == NULL){
         return -1;
     }
@@ -79,9 +70,8 @@ int ArchivoUsuario::buscar(std::string busqueda, int tipoDeBusqueda){
     fclose(pArchivo);
     return -1;
 }
-
-Usuario ArchivoUsuario::leer(int posicion){
-    FILE *pArchivo = fopen(_nombreArchivo, "rb");
+Usuario ArchivoUsuario::Leer(int posicion){
+    FILE *pArchivo = fopen(this->_nombreArchivo.c_str(), "rb");
     if(pArchivo == NULL){
         return Usuario();
     }
@@ -91,20 +81,8 @@ Usuario ArchivoUsuario::leer(int posicion){
     fclose(pArchivo);
     return usuario;
 }
-
-int ArchivoUsuario::calcularCantidadRegistros(){
-    FILE *pArchivo = fopen(_nombreArchivo, "rb");
-    if(pArchivo == NULL){
-        return 0;
-    }
-    fseek(pArchivo, 0, SEEK_END);
-    int cantidadRegistros = ftell(pArchivo) / sizeof(Usuario);
-    fclose(pArchivo);
-    return cantidadRegistros;
-}
-
-void ArchivoUsuario::leer(int cantidadRegistros, Usuario *vector){
-    FILE *pArchivo = fopen(_nombreArchivo, "rb");
+void ArchivoUsuario::Leer(int cantidadRegistros, Usuario *vector){
+    FILE *pArchivo = fopen(this->_nombreArchivo.c_str(), "rb");
     if(pArchivo == NULL){
         return;
     }
@@ -113,17 +91,18 @@ void ArchivoUsuario::leer(int cantidadRegistros, Usuario *vector){
     }
     fclose(pArchivo);
 }
-
-Usuario* ArchivoUsuario::leerTodos(){
-    FILE *pArchivo = fopen(_nombreArchivo, "rb");
+Usuario* ArchivoUsuario::LeerTodos(){
+    FILE *pArchivo = fopen(this->_nombreArchivo.c_str(), "rb");
     if(pArchivo == NULL){        
         return nullptr;
     }
     fseek(pArchivo, 0, SEEK_END);
     int tamanoArchivo = ftell(pArchivo);
     int cantidadRegistros = tamanoArchivo / sizeof(Usuario);
+
     //Actualizamos la cantidad de registros
-    this->_cantidadRegistros = cantidadRegistros; 
+
+    this->setCantidadRegistros(false, cantidadRegistros);
 
     if (tamanoArchivo % sizeof(Usuario) != 0) {        
         system("pause"); 
@@ -145,13 +124,6 @@ Usuario* ArchivoUsuario::leerTodos(){
 
     return vectorUsuarios;
 }
-
-int ArchivoUsuario::aumentarRegistros() {
-    this->_cantidadRegistros++; 
-    return this->_cantidadRegistros; 
+const char* ArchivoUsuario::getNombreArchivo() const {
+    return "db/usuario.dat";
 }
-
-int ArchivoUsuario::getCantidadRegistros() {
-    return this->_cantidadRegistros;
-};
-

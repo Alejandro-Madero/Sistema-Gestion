@@ -1,23 +1,20 @@
 #pragma once
 #include <string>
-#include "usuario.h"
+#include  "usuario.h"
+#include "archivo.h"
 
-class ArchivoUsuario{
+class ArchivoUsuario : public Archivo{
     public:
         ArchivoUsuario();
-        bool crear();
+        ArchivoUsuario(size_t tamanioRegistro, std::string nombreArchivo);      
         bool guardar(Usuario usuario);
         bool guardar(Usuario usuario, int posicion);
         int buscar(std::string busqueda, int tipoDeBuqueda);        
-        Usuario leer(int posicion);
-        Usuario* leerTodos();
-        int calcularCantidadRegistros();
-        int aumentarRegistros();
-        void leer(int cantidadRegistros, Usuario *vector);
-        int getCantidadRegistros(); 
+        Usuario Leer(int posicion);
+        Usuario* LeerTodos();              
+        void Leer(int cantidadRegistros, Usuario *vector);    
+        const char* getNombreArchivo() const override; 
 
-    private:
-        const char * _nombreArchivo  = "db/usuario.dat";
-        int _cantidadRegistros = -1; 
-        
+    private:        
+        int _cantidadRegistros = -1;         
 };

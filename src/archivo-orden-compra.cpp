@@ -1,20 +1,13 @@
 #include "../include/archivo-orden-compra.h"
 
-ArchivoOrdenCompra::ArchivoOrdenCompra(){
+ArchivoOrdenCompra::ArchivoOrdenCompra() : Archivo(sizeof(OrdenCompra), "db/orden-compra.dat") {
 
 }
+ArchivoOrdenCompra::ArchivoOrdenCompra(size_t tamanioRegistro, std::string nombreArchivo) : Archivo(tamanioRegistro, nombreArchivo){
 
-bool ArchivoOrdenCompra::crear(){
-    FILE *pArchivo = fopen(_nombreArchivo, "wb+");
-    if(pArchivo == NULL){
-        return false;
-    }
-    fclose(pArchivo);
-    return true;
 }
-
 bool ArchivoOrdenCompra::guardar(OrdenCompra orden){
-    FILE *pArchivo = fopen(_nombreArchivo, "ab");
+    FILE *pArchivo = fopen(this->_nombreArchivo.c_str(), "ab");
     if(pArchivo == NULL){
         return false;
     }
@@ -22,9 +15,8 @@ bool ArchivoOrdenCompra::guardar(OrdenCompra orden){
     fclose(pArchivo);
     return ok;
 }
-
 bool ArchivoOrdenCompra::guardar(OrdenCompra orden, int posicion){
-    FILE *pArchivo = fopen(_nombreArchivo, "rb+");
+    FILE *pArchivo = fopen(this->_nombreArchivo.c_str(), "rb+");
     if(pArchivo == NULL){
         return false;
     }
@@ -33,9 +25,8 @@ bool ArchivoOrdenCompra::guardar(OrdenCompra orden, int posicion){
     fclose(pArchivo);
     return ok;
 }
-
 int ArchivoOrdenCompra::buscar(int IDCliente){
-    FILE *pArchivo = fopen(_nombreArchivo, "rb");
+    FILE *pArchivo = fopen(this->_nombreArchivo.c_str(), "rb");
     if(pArchivo == NULL){
         return -1;
     }
@@ -51,9 +42,8 @@ int ArchivoOrdenCompra::buscar(int IDCliente){
     fclose(pArchivo);
     return -1;
 }
-
-OrdenCompra ArchivoOrdenCompra::leer(int posicion){
-    FILE *pArchivo = fopen(_nombreArchivo, "rb");
+OrdenCompra ArchivoOrdenCompra::Leer(int posicion){
+    FILE *pArchivo = fopen(this->_nombreArchivo.c_str(), "rb");
     if(pArchivo == NULL){
         return OrdenCompra();
     }
@@ -63,20 +53,8 @@ OrdenCompra ArchivoOrdenCompra::leer(int posicion){
     fclose(pArchivo);
     return orden;
 }
-
-int ArchivoOrdenCompra::CantidadRegistros(){
-    FILE *pArchivo = fopen(_nombreArchivo, "rb");
-    if(pArchivo == NULL){
-        return 0;
-    }
-    fseek(pArchivo, 0, SEEK_END);
-    int cantidadRegistros = ftell(pArchivo) / sizeof(OrdenCompra);
-    fclose(pArchivo);
-    return cantidadRegistros;
-}
-
-void ArchivoOrdenCompra::leer(int cantidadRegistros, OrdenCompra *vector){
-    FILE *pArchivo = fopen(_nombreArchivo, "rb");
+void ArchivoOrdenCompra::Leer(int cantidadRegistros, OrdenCompra *vector){
+    FILE *pArchivo = fopen(this->_nombreArchivo.c_str(), "rb");
     if(pArchivo == NULL){
         return;
     }
@@ -85,4 +63,6 @@ void ArchivoOrdenCompra::leer(int cantidadRegistros, OrdenCompra *vector){
     }
     fclose(pArchivo);
 }
-
+const char* ArchivoOrdenCompra::getNombreArchivo() const {
+    return  "db/orden-compra.dat";
+}

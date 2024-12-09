@@ -1,18 +1,19 @@
 #pragma once
 #include <string>
 #include  "Producto.h"
+#include "archivo.h"
 
-class ArchivoProducto{
-    private:
-        const char * _nombreArchivo  = "db/productos.dat";
+class ArchivoProducto: public Archivo {
+  
         
     public:
-        ArchivoProducto();
-        bool crear();
+        ArchivoProducto(); 
+        ArchivoProducto(size_t tamanioRegistro, std::string nombreArchivo);       
         bool guardar(Producto Productos);
         bool guardar(Producto Productos, int posicion);
         int buscar(std::string codigo);
-        Producto leer(int posicion);
-        int CantidadRegistros();
-        void leer(int cantidadRegistros, Producto *vector);
+        Producto Leer(int posicion);        
+        void Leer(int cantidadRegistros, Producto *vector);
+        const char* getNombreArchivo() const override; 
+
 };
