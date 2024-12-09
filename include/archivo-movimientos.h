@@ -8,11 +8,11 @@ class ArchivoMovimientos{
         
     public:
         ArchivoMovimientos();
-        bool Crear();
-        bool Guardar(Movimientos movimientos);
-        bool Guardar(Movimientos movimientos, int posicion);
-        int Buscar(int nroMovimiento);
-        Movimientos Leer(int posicion);
+        bool crear();
+        bool guardar(Movimientos movimientos);
+        bool guardar(Movimientos movimientos, int posicion);
+        int buscar(int nroMovimiento);
+        Movimientos leer(int posicion);
         int CantidadRegistros();
-        void Leer(int cantidadRegistros, Movimientos *vector);
+        void leer(int cantidadRegistros, Movimientos *vector);
 };

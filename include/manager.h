@@ -2,7 +2,7 @@
 #include <iostream>
 #include "fecha.h"
 #include "persona.h"
-#include "recurso.h"
+#include "Producto.h"
 #include "cliente.h"
 #include "usuario.h"
 #include "orden.h"
@@ -13,7 +13,7 @@
 #include "archivo-movimientos.h"
 #include "archivo-orden-compra.h"
 #include "archivo-orden-venta.h"
-#include "archivo-recursos.h"
+#include "archivo-productos.h"
 #include "archivo-usuario.h"
 #include "manager.h"
 
@@ -47,20 +47,20 @@ public:
 	//funcionalidades insumos
 	
 	int buscarInsumo(std::string codigo);
-	int agregarInsumo(Recurso insumo);
+	int agregarInsumo(Producto insumo);
 	bool borrarInsumo(int pos);	
-	bool modificarInsumo(Recurso insumo, int pos);
+	bool modificarInsumo(Producto insumo, int pos);
 	bool modificarStockInsumo(int stock, int pos);
 	
 	
 	
-	Recurso getRecurso(int pos);
-	bool listaRecursos(int pos, int cantidad, bool isProducto, bool borrado, Recurso*& vector, int& vectorSize);
+	Producto getProducto(int pos);
+	bool listaProductos(int pos, int cantidad, bool isProducto, bool borrado, Producto*& vector, int& vectorSize);
 	//funcionalidades productos
 	int buscarProducto(std::string codigo);
-	int agregarProducto(Recurso producto);
+	int agregarProducto(Producto producto);
 	bool borrarProducto(int pos);
-	bool modificarStockRecurso(int stock, int pos);	
+	bool modificarStockProducto(int stock, int pos);	
 	
 private:
 	ArchivoCliente archivoCliente;			
@@ -68,6 +68,7 @@ private:
 	ArchivoOrdenCompra archivoOrdenCompra;
 	ArchivoOrdenVenta archivoOrdenVenta;
 	ArchivoUsuario archivoUsuario;
+	ArchivoProducto archivoProductos; 
 	char _rolUsuario;	
 	std::string _nombreUsuario;
 	Usuario* _cacheListadoUsuarios;

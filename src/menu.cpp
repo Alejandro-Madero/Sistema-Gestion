@@ -74,7 +74,7 @@ void Menu::menuProductos(Manager& manager, UiConsole& ui)
 			ui.limpiarConsola();
 			if (!manager.esAdmin())
 			{
-				std::cout << "No tiene permisos para dar de alta un nuevo producto" << std::endl;
+				std::cout << "No tiene permisos para dar de alta un nuevo producto." << std::endl;
 				ui.pausa();
 				return;
 			}
@@ -109,7 +109,7 @@ void Menu::menuProductos(Manager& manager, UiConsole& ui)
 				ui.pausa();
 				return;
 			}
-			Recurso producto = ui.agregarRecurso(codigoInsumo, true);
+			Producto producto = ui.agregarProducto(codigoInsumo, true);
 			if (producto.getCodigo() == "")
 			{
 				ui.pausa();
@@ -168,11 +168,11 @@ void Menu::menuProductos(Manager& manager, UiConsole& ui)
 			}
 			if (manager.borrarProducto(pos))
 			{
-				std::cout << "El recurso se borro correctamente" << std::endl;
+				std::cout << "El Producto se borro correctamente" << std::endl;
 			}
 			else
 			{
-				std::cout << "No se pudo borrar el recurso" << std::endl;
+				std::cout << "No se pudo borrar el Producto" << std::endl;
 			}
 			ui.pausa();
 			return;
@@ -218,7 +218,7 @@ void Menu::menuProductos(Manager& manager, UiConsole& ui)
 				ui.pausa();
 				return;
 			}
-			Recurso* producto = new Recurso(manager.getRecurso(pos));
+			Producto* producto = new Producto(manager.getProducto(pos));
 			if (producto == nullptr)
 			{
 				std::cout << "no hay memoria disponible" << std::endl;
@@ -226,10 +226,10 @@ void Menu::menuProductos(Manager& manager, UiConsole& ui)
 				return;
 			}
 			std::cout << "Valor actual del producto : " << std::endl;
-			ui.mostrarRecursos(producto, 1);
+			ui.mostrarProductos(producto, 1);
 			delete producto;
 			std::cout << "Valor nuevo del producto : " << std::endl;
-			Recurso productoModificado = ui.agregarRecurso(codigo, false);
+			Producto productoModificado = ui.agregarProducto(codigo, false);
 			productoModificado.setOrigen(true);
 			/*if (manager.modificarInsumo(productoModificado, pos))
 			{
@@ -276,16 +276,16 @@ void Menu::menuProductos(Manager& manager, UiConsole& ui)
 				ui.pausa();
 				return;
 			}
-			Recurso* producto = new Recurso(manager.getRecurso(pos));
+			Producto* producto = new Producto(manager.getProducto(pos));
 			if (producto == nullptr)
 			{
 				std::cout << "no hay memoria disponible" << std::endl;
 				ui.pausa();
 				return;
 			}
-			ui.mostrarRecursos(producto, 1);
+			ui.mostrarProductos(producto, 1);
 			delete producto;
-			int stock = ui.stockRecurso();
+			int stock = ui.stockProducto();
 			if (stock < 0)
 			{
 				ui.pausa();
@@ -311,14 +311,14 @@ void Menu::menuProductos(Manager& manager, UiConsole& ui)
 		{
 			ui.limpiarConsola();
 			int cantidad = 0;
-			Recurso* productos = nullptr;
-			if (!manager.listaRecursos(0, 0, true, false, productos, cantidad))
+			Producto* productos = nullptr;
+			if (!manager.listaProductos(0, 0, true, false, productos, cantidad))
 			{
 				std::cout << "No hay Productos" << std::endl;
 				ui.pausa();
 				return;
 			}
-			ui.mostrarRecursos(productos, cantidad);
+			ui.mostrarProductos(productos, cantidad);
 			delete[] productos;
 			ui.pausa();
 			return;
@@ -357,14 +357,14 @@ void Menu::menuProductos(Manager& manager, UiConsole& ui)
 				ui.pausa();
 				return;
 			}
-			Recurso* producto = new Recurso(manager.getRecurso(pos));
+			Producto* producto = new Producto(manager.getProducto(pos));
 			if (producto == nullptr)
 			{
 				std::cout << "no hay memoria disponible" << std::endl;
 				ui.pausa();
 				return;
 			}
-			ui.mostrarRecursos(producto, 1);
+			ui.mostrarProductos(producto, 1);
 			delete producto;
 			ui.pausa();
 			return;
@@ -440,7 +440,7 @@ void Menu::menuInsumo(Manager& manager, UiConsole& ui)
 				ui.pausa();
 				return;
 			}
-			Recurso insumo = ui.agregarRecurso(codigoInsumo, true);
+			Producto insumo = ui.agregarProducto(codigoInsumo, true);
 			if (insumo.getCodigo() == "")
 			{
 				ui.pausa();
@@ -494,14 +494,14 @@ void Menu::menuInsumo(Manager& manager, UiConsole& ui)
 		{
 			ui.limpiarConsola();
 			int cantidad = 0;
-			Recurso* insumos = nullptr;
-			if (!manager.listaRecursos(0, 0, false, false, insumos, cantidad))
+			Producto* insumos = nullptr;
+			if (!manager.listaProductos(0, 0, false, false, insumos, cantidad))
 			{
 				std::cout << "No hay insumos" << std::endl;
 				ui.pausa();
 				return;
 			}
-			ui.mostrarRecursos(insumos, cantidad);
+			ui.mostrarProductos(insumos, cantidad);
 			delete[] insumos;
 			ui.pausa();
 			return;
@@ -535,7 +535,7 @@ void Menu::menuInsumo(Manager& manager, UiConsole& ui)
 				ui.pausa();
 				return;
 			}
-			Recurso* insumo = new Recurso(manager.getRecurso(pos));
+			Producto* insumo = new Producto(manager.getProducto(pos));
 			if (insumo == nullptr)
 			{
 				std::cout << "no hay memoria disponible" << std::endl;
@@ -543,10 +543,10 @@ void Menu::menuInsumo(Manager& manager, UiConsole& ui)
 				return;
 			}
 			std::cout << "Valor actual del insumo : " << std::endl;
-			ui.mostrarRecursos(insumo, 1);
+			ui.mostrarProductos(insumo, 1);
 			delete insumo;
 			std::cout << "Valor nuevo del insumo : " << std::endl;
-			Recurso insumoModificado = ui.agregarRecurso(codigo, true);
+			Producto insumoModificado = ui.agregarProducto(codigo, true);
 			if (manager.modificarInsumo(insumoModificado, pos))
 			{
 				std::cout << "Insumo modificado correctamente" << std::endl;
@@ -574,14 +574,14 @@ void Menu::menuInsumo(Manager& manager, UiConsole& ui)
 				ui.pausa();
 				return;
 			}
-			Recurso* insumo = new Recurso(manager.getRecurso(pos));
+			Producto* insumo = new Producto(manager.getProducto(pos));
 			if (insumo == nullptr)
 			{
 				std::cout << "no hay memoria disponible" << std::endl;
 				ui.pausa();
 				return;
 			}
-			ui.mostrarRecursos(insumo, 1);
+			ui.mostrarProductos(insumo, 1);
 			delete insumo;
 			ui.pausa();
 			return;
@@ -602,16 +602,16 @@ void Menu::menuInsumo(Manager& manager, UiConsole& ui)
 				ui.pausa();
 				return;
 			}
-			Recurso* insumo = new Recurso(manager.getRecurso(pos));
+			Producto* insumo = new Producto(manager.getProducto(pos));
 			if (insumo == nullptr)
 			{
 				std::cout << "no hay memoria disponible" << std::endl;
 				ui.pausa();
 				return;
 			}
-			ui.mostrarRecursos(insumo, 1);
+			ui.mostrarProductos(insumo, 1);
 			delete insumo;
-			int stock = ui.stockRecurso();
+			int stock = ui.stockProducto();
 			if (stock < 0)
 			{
 				ui.pausa();

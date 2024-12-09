@@ -27,7 +27,7 @@
     <ClCompile Include="src\archivo-orden-venta.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\archivo-recurso.cpp">
+    <ClCompile Include="src\archivo-productos.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\archivo-usuario.cpp">
@@ -86,16 +86,13 @@
     <ClInclude Include="include\archivo-orden-venta.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\archivo-recursos.h">
+    <ClInclude Include="include\archivo-productos.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\archivo-usuario.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\cliente.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\factura.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\fecha.h">
@@ -126,6 +123,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\menu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\producto.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

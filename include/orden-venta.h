@@ -3,17 +3,17 @@
 #include "orden.h"
 
 
-class OrdenVenta:public Orden{
-  public:
-   OrdenVenta();
-   OrdenVenta(int idCliente);
-   
-   
-   int getIdCliente();
-   void setIdCliente(int id);
+class OrdenVenta :public Orden {
+public:
+	OrdenVenta();
+	OrdenVenta(int idCliente);
 
 
-  private:
-   int _idCliente;
+	int getIdCliente();
+	void setIdCliente(int id);
+
+
+private:
+	int _idCliente;
 
 };

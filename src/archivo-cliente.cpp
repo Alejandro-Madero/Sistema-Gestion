@@ -4,7 +4,7 @@ ArchivoCliente::ArchivoCliente(){
 
 }
 
-bool ArchivoCliente::Crear(){
+bool ArchivoCliente::crear(){
     FILE *pArchivo = fopen(_nombreArchivo, "wb");
     if(pArchivo == NULL){
         return false;
@@ -12,7 +12,7 @@ bool ArchivoCliente::Crear(){
     fclose(pArchivo);
     return true;
 }
-bool ArchivoCliente::Guardar(Cliente cliente){
+bool ArchivoCliente::guardar(Cliente cliente){
     FILE *pArchivo = fopen(_nombreArchivo, "ab");
     if(pArchivo == NULL){
         return false;
@@ -22,7 +22,7 @@ bool ArchivoCliente::Guardar(Cliente cliente){
     return ok;
 }
 
-bool ArchivoCliente::Guardar(Cliente cliente, int posicion){
+bool ArchivoCliente::guardar(Cliente cliente, int posicion){
     FILE *pArchivo = fopen(_nombreArchivo, "rb+");
     if(pArchivo == NULL){
         return false;
@@ -33,7 +33,7 @@ bool ArchivoCliente::Guardar(Cliente cliente, int posicion){
     return ok;
 }
 
-int ArchivoCliente::Buscar(int IDCliente){
+int ArchivoCliente::buscar(int IDCliente){
     FILE *pArchivo = fopen(_nombreArchivo, "rb");
     if(pArchivo == NULL){
         return -1;
@@ -51,7 +51,7 @@ int ArchivoCliente::Buscar(int IDCliente){
     return -1;
 }
 
-Cliente ArchivoCliente::Leer(int posicion){
+Cliente ArchivoCliente::leer(int posicion){
     FILE *pArchivo = fopen(_nombreArchivo, "rb");
     if(pArchivo == NULL){
         return Cliente();
@@ -74,7 +74,7 @@ int ArchivoCliente::CantidadRegistros(){
     return cantidadRegistros;
 }
 
-void ArchivoCliente::Leer(int cantidadRegistros, Cliente *vector){
+void ArchivoCliente::leer(int cantidadRegistros, Cliente *vector){
     FILE *pArchivo = fopen(_nombreArchivo, "rb");
     if(pArchivo == NULL){
         return;

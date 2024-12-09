@@ -24,7 +24,7 @@
     <ClCompile Include="src\archivo-movimientos.cpp" />
     <ClCompile Include="src\archivo-orden-compra.cpp" />
     <ClCompile Include="src\archivo-orden-venta.cpp" />
-    <ClCompile Include="src\archivo-recurso.cpp" />
+    <ClCompile Include="src\archivo-productos.cpp" />
     <ClCompile Include="src\archivo-usuario.cpp" />
     <ClCompile Include="src\cliente.cpp" />
     <ClCompile Include="src\fecha.cpp" />
@@ -44,10 +44,9 @@
     <ClInclude Include="include\archivo-movimientos.h" />
     <ClInclude Include="include\archivo-orden-compra.h" />
     <ClInclude Include="include\archivo-orden-venta.h" />
-    <ClInclude Include="include\archivo-recursos.h" />
+    <ClInclude Include="include\archivo-productos.h" />
     <ClInclude Include="include\archivo-usuario.h" />
     <ClInclude Include="include\cliente.h" />
-    <ClInclude Include="include\factura.h" />
     <ClInclude Include="include\fecha.h" />
     <ClInclude Include="include\manager.h" />
     <ClInclude Include="include\menu.h" />
@@ -56,6 +55,7 @@
     <ClInclude Include="include\orden-venta.h" />
     <ClInclude Include="include\orden.h" />
     <ClInclude Include="include\persona.h" />
+    <ClInclude Include="include\producto.h" />
     <ClInclude Include="include\ui-console.h" />
     <ClInclude Include="include\usuario.h" />
   </ItemGroup>

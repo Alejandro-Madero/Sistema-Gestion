@@ -5,22 +5,21 @@
 Manager::Manager() {
    this->_cacheListadoUsuarios = nullptr;  
    this->archivoCliente = ArchivoCliente();   
-   
    this->archivoMovimientos = ArchivoMovimientos();
    this->archivoOrdenCompra = ArchivoOrdenCompra(); 
-   this->archivoOrdenVenta = ArchivoOrdenVenta();
-   
+   this->archivoOrdenVenta = ArchivoOrdenVenta();   
    this->archivoUsuario = ArchivoUsuario();
    if (archivoUsuario.getCantidadRegistros() < 1) {
       if (_mkdir("db") != 0) {
         return; // Directorio creado exitosamente
       } 
-      this->archivoCliente.Crear();          
-      this->archivoMovimientos.Crear();
-      this->archivoOrdenCompra.Crear();     
-      this->archivoOrdenVenta.Crear();     
-      this->archivoUsuario.Crear();
-      this->archivoUsuario.Guardar(Usuario('a',"pass","root",Fecha(1,1,2000),0,"0", 'F', "root", "root", "root"));
+      this->archivoCliente.crear();          
+      this->archivoMovimientos.crear();
+      this->archivoOrdenCompra.crear();     
+      this->archivoOrdenVenta.crear();     
+      this->archivoUsuario.crear();
+	  this->archivoProductos.crear(); 
+      this->archivoUsuario.guardar(Usuario('a',"pass","root",Fecha(1,1,2000),0,"0", 'F', "root", "root", "root"));
    }
 }
 
@@ -30,7 +29,7 @@ bool Manager::login(std::string user, std::string pass) {
 		return false;
 	}
 
-	Usuario usuario = this->archivoUsuario.Leer(posicionUsuario);
+	Usuario usuario = this->archivoUsuario.leer(posicionUsuario);
 
     bool usuarioActivo = usuario.getEstadoUsuario();
 
@@ -53,14 +52,14 @@ std::string Manager::getNombreUsuario() {
 	return this->_nombreUsuario;
 }
 int Manager::buscarUsuario(std::string nombreUsuario) {
-   return this->archivoUsuario.Buscar(nombreUsuario,1);
+   return this->archivoUsuario.buscar(nombreUsuario,1);
 }
 int Manager::buscarUsuario(std::string nombreUsuario, bool buscarEnCache) {
 	if (buscarEnCache) {
 		return this->buscar(nombreUsuario, 1);
 	}
 	else {
-		return this->archivoUsuario.Buscar(nombreUsuario, 1);
+		return this->archivoUsuario.buscar(nombreUsuario, 1);
 	}
 
 
@@ -71,7 +70,7 @@ int Manager::buscarEmail(std::string email, bool buscarEnCache) {
 		return this->buscar(email, 2);
 	}
 	else {
-		return this->archivoUsuario.Buscar(email, 2);
+		return this->archivoUsuario.buscar(email, 2);
 	}
 }
 
@@ -80,16 +79,16 @@ int Manager::buscarTelefono(std::string telefono, bool buscarEnCache) {
 		return this->buscar(telefono, 3);
 	}
 	else {
-		return this->archivoUsuario.Buscar(telefono, 3);
+		return this->archivoUsuario.buscar(telefono, 3);
 	}
 }
 
 bool Manager::agregarUsuario(Usuario usuario) {
-	return this->archivoUsuario.Guardar(usuario);
+	return this->archivoUsuario.guardar(usuario);
 }
 
 Usuario* Manager::getListaUsuarios() {
-	return this->archivoUsuario.LeerTodos();
+	return this->archivoUsuario.leerTodos();
 }
 
 int Manager::cantidadUsuarios() {
@@ -145,11 +144,11 @@ int Manager::buscar(std::string busqueda, int tipoDeBusqueda) {
 }
 
 Usuario Manager::leerUsuario(int posicion) {
-	return this->archivoUsuario.Leer(posicion);
+	return this->archivoUsuario.leer(posicion);
 }
 
 bool Manager::reescribirUsuario(Usuario usuario, int posicion) {
-	return this->archivoUsuario.Guardar(usuario, posicion);
+	return this->archivoUsuario.guardar(usuario, posicion);
 }
 
 
@@ -179,7 +178,7 @@ bool Manager::esVendedor() {
 
 
 
-bool Manager::listaRecursos(int pos, int cant, bool isProducto, bool borrado, Recurso*& vector, int &vectorSize) {
+bool Manager::listaProductos(int pos, int cant, bool isProducto, bool borrado, Producto*& vector, int &vectorSize) {
    
 	return true; 
 }
@@ -193,7 +192,7 @@ int Manager::buscarProducto(std::string codigo) {
 	return 1;
 }
 
-int Manager::agregarProducto(Recurso producto) {
+int Manager::agregarProducto(Producto producto) {
 	return 1;
 }
 
@@ -202,7 +201,7 @@ bool Manager::borrarProducto(int pos) {
 
 	return true;
 }
-bool Manager::modificarStockRecurso(int stock, int pos) {
+bool Manager::modificarStockProducto(int stock, int pos) {
     ////return this->modificarStockInsumo(stock, pos);
 	return true;
 }
@@ -220,19 +219,19 @@ void Manager::setUsarioLoggeado(Usuario usuario) {
     this->_usuarioLoggeado = usuario;
 }
 
-Recurso Manager::getRecurso(int pos) {
-	return Recurso();
+Producto Manager::getProducto(int pos) {
+	return Producto();
 }
 	int Manager::buscarInsumo(std::string codigo) {
 		return 1;
 	};
 
-int Manager::agregarInsumo(Recurso insumo) {
+int Manager::agregarInsumo(Producto insumo) {
 	return 1;
 };
 
 bool Manager::borrarInsumo(int pos) { return true; };
-bool Manager::modificarInsumo(Recurso insumo, int pos) {
+bool Manager::modificarInsumo(Producto insumo, int pos) {
 	return true;
 }
 bool Manager::modificarStockInsumo(int stock, int pos) { return true; };

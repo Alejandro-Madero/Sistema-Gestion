@@ -55,10 +55,10 @@ class UiConsole {
 
 //funcionalidades insumo-producto  (le mandaba Leontief jaja)
    std::string pedirCodigo();
-   Recurso agregarRecurso(std::string codigo,bool isInsumo);
-   void mostrarRecursos(Recurso* insumos,int cantidad);
-   int stockRecurso();
-   bool mostrarComposicion(Recurso* insumos,int cantidad,Recurso* producto);
+   Producto agregarProducto(std::string codigo,bool isInsumo);
+   void mostrarProductos(Producto* insumos,int cantidad);
+   int stockProducto();
+   bool mostrarComposicion(Producto* insumos,int cantidad,Producto* producto);
 
   private:
    std::string _nombreUsuario;

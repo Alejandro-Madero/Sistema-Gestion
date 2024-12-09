@@ -3,20 +3,18 @@
 
 Movimientos::Movimientos() {
    this->_nroMovimiento = 0;
-   this->_fecha = Fecha();
-   this->_motivo[0] = '\0';
+   this->_fecha = Fecha();   
    this->_tipoMovimiento = '\0';
-   this->_id[0] = '\0';
-   this->_destino = false;
+   this->_id[0] = '\0';  
 }
 
 Movimientos::Movimientos(Fecha fecha, std::string motivo, char tipo, std::string id) {
    this->_nroMovimiento = 0;
    this->_fecha = fecha;
-   strcpy(this->_motivo, motivo.c_str());
+
    this->_tipoMovimiento = tipo;
    strcpy(this->_id, id.c_str());
-   this->_destino = false;
+   
 }
 
 Fecha Movimientos::getFecha() {
@@ -27,28 +25,12 @@ void Movimientos::setFecha(Fecha f) {
    this->_fecha = f;
 }
 
-std::string Movimientos::getMotivo() {
-   return this->_motivo;
-}
-
-void Movimientos::setMotivo(std::string motivo) {
-   strcpy(this->_motivo, motivo.c_str());
-}
-
 char Movimientos::getTipoMovimiento() {
    return this->_tipoMovimiento;
 }
 
 void Movimientos::setTipoMovimiento(char tipo) {
    this->_tipoMovimiento = tipo;
-}
-
-bool Movimientos::getDestino() {
-   return this->_destino;
-}
-
-void Movimientos::setDestino(bool destino) {
-   this->_destino = destino;
 }
 
 std::string Movimientos::getId() {

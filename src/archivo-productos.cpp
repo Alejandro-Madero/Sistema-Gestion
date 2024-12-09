@@ -1,10 +1,10 @@
-#include "../include/archivo-recursos.h"
+#include "../include/archivo-productos.h"
 
 #include <cstring>
 
-ArchivoRecurso::ArchivoRecurso() {}
+ArchivoProducto::ArchivoProducto() {}
 
-bool ArchivoRecurso::Crear(){
+bool ArchivoProducto::crear(){
     FILE *pArchivo = fopen(_nombreArchivo, "wb+");
     if(pArchivo == NULL){
         return false;
@@ -13,36 +13,36 @@ bool ArchivoRecurso::Crear(){
     return true;
 }
 
-bool ArchivoRecurso::Guardar(Recurso recurso){
+bool ArchivoProducto::guardar(Producto Producto){
     FILE *pArchivo = fopen(_nombreArchivo, "ab");
     if(pArchivo == NULL){
         return false;
     }
-    bool ok = fwrite(&recurso, sizeof(recurso), 1, pArchivo);
+    bool ok = fwrite(&Producto, sizeof(Producto), 1, pArchivo);
     fclose(pArchivo);
     return ok;
 }
 
-bool ArchivoRecurso::Guardar(Recurso recurso, int posicion){
+bool ArchivoProducto::guardar(Producto Producto, int posicion){
     FILE *pArchivo = fopen(_nombreArchivo, "rb+");
     if(pArchivo == NULL){
         return false;
     }
-    fseek(pArchivo, sizeof(Recurso) * posicion, SEEK_SET);
-    bool ok = fwrite(&recurso, sizeof(Recurso), 1, pArchivo);
+    fseek(pArchivo, sizeof(Producto) * posicion, SEEK_SET);
+    bool ok = fwrite(&Producto, sizeof(Producto), 1, pArchivo);
     fclose(pArchivo);
     return ok;
 }
 
-int ArchivoRecurso::Buscar(std::string IdRecurso){
+int ArchivoProducto::buscar(std::string IdProducto){
     FILE *pArchivo = fopen(_nombreArchivo, "rb");
     if(pArchivo == NULL){
         return -1;
     }
-    Recurso recurso;
+    Producto Producto;
     int i = 0;
-    while(fread(&recurso, sizeof(Recurso), 1, pArchivo)){
-        if(recurso.getCodigo() == IdRecurso){
+    while(fread(&Producto, sizeof(Producto), 1, pArchivo)){
+        if(Producto.getCodigo() == IdProducto){
             fclose(pArchivo);
             return i;
         }
@@ -52,36 +52,36 @@ int ArchivoRecurso::Buscar(std::string IdRecurso){
     return -1;
 }
 
-Recurso ArchivoRecurso::Leer(int posicion){
+Producto ArchivoProducto::leer(int posicion){
     FILE *pArchivo = fopen(_nombreArchivo, "rb");
     if(pArchivo == NULL){
-        return Recurso();
+        return Producto();
     }
-    Recurso recurso;
-    fseek(pArchivo, sizeof(Recurso) * posicion, SEEK_SET);
-    fread(&recurso, sizeof(Recurso), 1, pArchivo);
+    Producto Producto;
+    fseek(pArchivo, sizeof(Producto) * posicion, SEEK_SET);
+    fread(&Producto, sizeof(Producto), 1, pArchivo);
     fclose(pArchivo);
-    return recurso;
+    return Producto;
 }
 
-int ArchivoRecurso::CantidadRegistros(){
+int ArchivoProducto::CantidadRegistros(){
     FILE *pArchivo = fopen(_nombreArchivo, "rb");
     if(pArchivo == NULL){
         return 0;
     }
     fseek(pArchivo, 0, SEEK_END);
-    int cantidadRegistros = ftell(pArchivo) / sizeof(Recurso);
+    int cantidadRegistros = ftell(pArchivo) / sizeof(Producto);
     fclose(pArchivo);
     return cantidadRegistros;
 }
 
-void ArchivoRecurso::Leer(int cantidadRegistros, Recurso *vector){
+void ArchivoProducto::leer(int cantidadRegistros, Producto *vector){
     FILE *pArchivo = fopen(_nombreArchivo, "rb");
     if(pArchivo == NULL){
         return;
     }
     for(int i = 0; i < cantidadRegistros; i++){
-        fread(&vector[i], sizeof(Recurso), 1, pArchivo);
+        fread(&vector[i], sizeof(Producto), 1, pArchivo);
     }
     fclose(pArchivo);
 }

@@ -4,7 +4,7 @@ ArchivoOrdenCompra::ArchivoOrdenCompra(){
 
 }
 
-bool ArchivoOrdenCompra::Crear(){
+bool ArchivoOrdenCompra::crear(){
     FILE *pArchivo = fopen(_nombreArchivo, "wb+");
     if(pArchivo == NULL){
         return false;
@@ -13,7 +13,7 @@ bool ArchivoOrdenCompra::Crear(){
     return true;
 }
 
-bool ArchivoOrdenCompra::Guardar(OrdenCompra orden){
+bool ArchivoOrdenCompra::guardar(OrdenCompra orden){
     FILE *pArchivo = fopen(_nombreArchivo, "ab");
     if(pArchivo == NULL){
         return false;
@@ -23,7 +23,7 @@ bool ArchivoOrdenCompra::Guardar(OrdenCompra orden){
     return ok;
 }
 
-bool ArchivoOrdenCompra::Guardar(OrdenCompra orden, int posicion){
+bool ArchivoOrdenCompra::guardar(OrdenCompra orden, int posicion){
     FILE *pArchivo = fopen(_nombreArchivo, "rb+");
     if(pArchivo == NULL){
         return false;
@@ -34,7 +34,7 @@ bool ArchivoOrdenCompra::Guardar(OrdenCompra orden, int posicion){
     return ok;
 }
 
-int ArchivoOrdenCompra::Buscar(int IDCliente){
+int ArchivoOrdenCompra::buscar(int IDCliente){
     FILE *pArchivo = fopen(_nombreArchivo, "rb");
     if(pArchivo == NULL){
         return -1;
@@ -52,7 +52,7 @@ int ArchivoOrdenCompra::Buscar(int IDCliente){
     return -1;
 }
 
-OrdenCompra ArchivoOrdenCompra::Leer(int posicion){
+OrdenCompra ArchivoOrdenCompra::leer(int posicion){
     FILE *pArchivo = fopen(_nombreArchivo, "rb");
     if(pArchivo == NULL){
         return OrdenCompra();
@@ -75,7 +75,7 @@ int ArchivoOrdenCompra::CantidadRegistros(){
     return cantidadRegistros;
 }
 
-void ArchivoOrdenCompra::Leer(int cantidadRegistros, OrdenCompra *vector){
+void ArchivoOrdenCompra::leer(int cantidadRegistros, OrdenCompra *vector){
     FILE *pArchivo = fopen(_nombreArchivo, "rb");
     if(pArchivo == NULL){
         return;

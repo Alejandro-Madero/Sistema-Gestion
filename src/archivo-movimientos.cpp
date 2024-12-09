@@ -4,7 +4,7 @@ ArchivoMovimientos::ArchivoMovimientos(){
 
 }
 
-bool ArchivoMovimientos::Crear(){
+bool ArchivoMovimientos::crear(){
     FILE *pArchivo = fopen(_nombreArchivo, "wb+");
     if(pArchivo == NULL){
         return false;
@@ -13,7 +13,7 @@ bool ArchivoMovimientos::Crear(){
     return true;
 }
 
-bool ArchivoMovimientos::Guardar(Movimientos movimientos){
+bool ArchivoMovimientos::guardar(Movimientos movimientos){
     FILE *pArchivo = fopen(_nombreArchivo, "ab");
     if(pArchivo == NULL){
         return false;
@@ -23,7 +23,7 @@ bool ArchivoMovimientos::Guardar(Movimientos movimientos){
     return ok;
 }
 
-bool ArchivoMovimientos::Guardar(Movimientos movimientos, int posicion){
+bool ArchivoMovimientos::guardar(Movimientos movimientos, int posicion){
     FILE *pArchivo = fopen(_nombreArchivo, "rb+");
     if(pArchivo == NULL){
         return false;
@@ -34,7 +34,7 @@ bool ArchivoMovimientos::Guardar(Movimientos movimientos, int posicion){
     return ok;
 }
 
-int ArchivoMovimientos::Buscar(int IDCliente){
+int ArchivoMovimientos::buscar(int IDCliente){
     FILE *pArchivo = fopen(_nombreArchivo, "rb");
     if(pArchivo == NULL){
         return -1;
@@ -52,7 +52,7 @@ int ArchivoMovimientos::Buscar(int IDCliente){
     return -1;
 }
 
-Movimientos ArchivoMovimientos::Leer(int posicion){
+Movimientos ArchivoMovimientos::leer(int posicion){
     FILE *pArchivo = fopen(_nombreArchivo, "rb");
     if(pArchivo == NULL){
         return Movimientos();
@@ -75,7 +75,7 @@ int ArchivoMovimientos::CantidadRegistros(){
     return cantidadRegistros;
 }
 
-void ArchivoMovimientos::Leer(int cantidadRegistros, Movimientos *vector){
+void ArchivoMovimientos::leer(int cantidadRegistros, Movimientos *vector){
     FILE *pArchivo = fopen(_nombreArchivo, "rb");
     if(pArchivo == NULL){
         return;

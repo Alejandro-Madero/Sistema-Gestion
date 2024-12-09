@@ -4,7 +4,7 @@ ArchivoUsuario::ArchivoUsuario(){
     this->_cantidadRegistros = this->calcularCantidadRegistros();     
 }
 
-bool ArchivoUsuario::Crear(){
+bool ArchivoUsuario::crear(){
     FILE *pArchivo = fopen(_nombreArchivo, "wb+");
     if(pArchivo == NULL){
         return false;
@@ -12,7 +12,7 @@ bool ArchivoUsuario::Crear(){
     fclose(pArchivo);
     return true;
 }
-bool ArchivoUsuario::Guardar(Usuario usuario){
+bool ArchivoUsuario::guardar(Usuario usuario){
     FILE *pArchivo = fopen(_nombreArchivo, "ab");
     if(pArchivo == NULL){
         return false;
@@ -25,7 +25,7 @@ bool ArchivoUsuario::Guardar(Usuario usuario){
     return ok;
 }
 
-bool ArchivoUsuario::Guardar(Usuario usuario, int posicion){
+bool ArchivoUsuario::guardar(Usuario usuario, int posicion){
     FILE *pArchivo = fopen(_nombreArchivo, "rb+");
     if(pArchivo == NULL){
         return false;
@@ -36,7 +36,7 @@ bool ArchivoUsuario::Guardar(Usuario usuario, int posicion){
     return ok;
 }
 
-int ArchivoUsuario::Buscar(std::string busqueda, int tipoDeBusqueda){
+int ArchivoUsuario::buscar(std::string busqueda, int tipoDeBusqueda){
 
     // tipoDeBusqueda indica lo que queremos buscar:
     // 1- usuario
@@ -80,7 +80,7 @@ int ArchivoUsuario::Buscar(std::string busqueda, int tipoDeBusqueda){
     return -1;
 }
 
-Usuario ArchivoUsuario::Leer(int posicion){
+Usuario ArchivoUsuario::leer(int posicion){
     FILE *pArchivo = fopen(_nombreArchivo, "rb");
     if(pArchivo == NULL){
         return Usuario();
@@ -103,7 +103,7 @@ int ArchivoUsuario::calcularCantidadRegistros(){
     return cantidadRegistros;
 }
 
-void ArchivoUsuario::Leer(int cantidadRegistros, Usuario *vector){
+void ArchivoUsuario::leer(int cantidadRegistros, Usuario *vector){
     FILE *pArchivo = fopen(_nombreArchivo, "rb");
     if(pArchivo == NULL){
         return;
@@ -114,7 +114,7 @@ void ArchivoUsuario::Leer(int cantidadRegistros, Usuario *vector){
     fclose(pArchivo);
 }
 
-Usuario* ArchivoUsuario::LeerTodos(){
+Usuario* ArchivoUsuario::leerTodos(){
     FILE *pArchivo = fopen(_nombreArchivo, "rb");
     if(pArchivo == NULL){        
         return nullptr;

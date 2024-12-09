@@ -8,11 +8,11 @@ class ArchivoOrdenVenta{
         
     public:
         ArchivoOrdenVenta();
-        bool Crear();
-        bool Guardar(OrdenVenta ordenventa);
-        bool Guardar(OrdenVenta ordenventa, int posicion);
-        int Buscar(int idCliente);
-        OrdenVenta Leer(int posicion);
+        bool crear();
+        bool guardar(OrdenVenta ordenventa);
+        bool guardar(OrdenVenta ordenventa, int posicion);
+        int buscar(int idCliente);
+        OrdenVenta leer(int posicion);
         int CantidadRegistros();
-        void Leer(int cantidadRegistros, OrdenVenta *vector);
+        void leer(int cantidadRegistros, OrdenVenta *vector);
 };

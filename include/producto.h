@@ -1,10 +1,10 @@
 #pragma once
 #include <iostream>
 
-class Recurso {
+class Producto {
   public:
-   Recurso();
-   Recurso(std::string codigo, std::string descripcion, std::string tipoMedicion, int stock, int futuro,
+   Producto();
+   Producto(std::string codigo, std::string descripcion, std::string tipoMedicion, int stock, int futuro,
            bool origenInterno);
    std::string getCodigo();
    void setCodigo(std::string codigo);

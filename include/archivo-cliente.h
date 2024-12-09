@@ -8,11 +8,11 @@ class ArchivoCliente{
         
     public:
         ArchivoCliente();
-        bool Crear();
-        bool Guardar(Cliente cliente);
-        bool Guardar(Cliente cliente, int posicion);
-        int Buscar(int IDCliente);
-        Cliente Leer(int posicion);
+        bool crear();
+        bool guardar(Cliente cliente);
+        bool guardar(Cliente cliente, int posicion);
+        int buscar(int IDCliente);
+        Cliente leer(int posicion);
         int CantidadRegistros();
-        void Leer(int cantidadRegistros, Cliente *vector);
+        void leer(int cantidadRegistros, Cliente *vector);
 };
