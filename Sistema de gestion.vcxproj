@@ -36,7 +36,7 @@
     <ClCompile Include="src\orden-venta.cpp" />
     <ClCompile Include="src\orden.cpp" />
     <ClCompile Include="src\persona.cpp" />
-    <ClCompile Include="src\recurso.cpp" />
+    <ClCompile Include="src\producto.cpp" />
     <ClCompile Include="src\ui-console.cpp" />
     <ClCompile Include="src\usuario.cpp" />
   </ItemGroup>

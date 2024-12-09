@@ -189,11 +189,16 @@ bool Manager::listaProductos(int pos, int cant, bool isProducto, bool borrado, P
 // funcionalidades productos
 
 int Manager::buscarProducto(std::string codigo) {
-	return 1;
+	int posicion = this->archivoProductos.buscar(codigo);
+	return posicion; 
 }
 
-int Manager::agregarProducto(Producto producto) {
-	return 1;
+bool Manager::guardarProductoBaseDatos(Producto producto) {
+	bool guardadoCorrectamente = this->archivoProductos.guardar(producto);
+	
+	if (guardadoCorrectamente) return true;
+
+	return false;	
 }
 
 bool Manager::borrarProducto(int pos) {
@@ -207,7 +212,9 @@ bool Manager::modificarStockProducto(int stock, int pos) {
 }
 
 
-
+Producto Manager::getProducto(int pos) {
+	return Producto(); 
+}
 
 
 Usuario Manager::getUsuarioLoggeado() {
@@ -219,19 +226,3 @@ void Manager::setUsarioLoggeado(Usuario usuario) {
     this->_usuarioLoggeado = usuario;
 }
 
-Producto Manager::getProducto(int pos) {
-	return Producto();
-}
-	int Manager::buscarInsumo(std::string codigo) {
-		return 1;
-	};
-
-int Manager::agregarInsumo(Producto insumo) {
-	return 1;
-};
-
-bool Manager::borrarInsumo(int pos) { return true; };
-bool Manager::modificarInsumo(Producto insumo, int pos) {
-	return true;
-}
-bool Manager::modificarStockInsumo(int stock, int pos) { return true; };

@@ -44,23 +44,19 @@ public:
 	Usuario getUsuarioLoggeado();
 	void setUsarioLoggeado(Usuario usuario);
 
-	//funcionalidades insumos
+	//funcionalidades Productos
 	
-	int buscarInsumo(std::string codigo);
-	int agregarInsumo(Producto insumo);
-	bool borrarInsumo(int pos);	
-	bool modificarInsumo(Producto insumo, int pos);
-	bool modificarStockInsumo(int stock, int pos);
+	int buscarProducto(std::string codigo);
+	bool guardarProductoBaseDatos(Producto Producto);
+	bool borrarProducto(int pos);	
+	bool modificarProducto(Producto Producto, int pos);
+	bool modificarStockProducto(int stock, int pos);
 	
 	
 	
 	Producto getProducto(int pos);
 	bool listaProductos(int pos, int cantidad, bool isProducto, bool borrado, Producto*& vector, int& vectorSize);
-	//funcionalidades productos
-	int buscarProducto(std::string codigo);
-	int agregarProducto(Producto producto);
-	bool borrarProducto(int pos);
-	bool modificarStockProducto(int stock, int pos);	
+	
 	
 private:
 	ArchivoCliente archivoCliente;			

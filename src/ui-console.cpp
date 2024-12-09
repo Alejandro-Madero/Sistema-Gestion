@@ -53,7 +53,7 @@ void UiConsole::pausa()
 
 void UiConsole::opcionIncorrecta()
 {
-	std::cout << ROJO << "Opción incorrecta. Ingrese nuevamente una opción." << RESET << std::endl;
+	std::cout << UiConsole::ROJO << "La opción ingresada es incorrecta. Ingresela nuevamente." << UiConsole::RESET << std::endl;
 	this->pausa();
 }
 
@@ -70,13 +70,6 @@ const char* MENU_PRINCIPAL = R"(
 ║                                          ║ 
 ║            SISTEMA DE GESTIÓN            ║ 
 ║                                          ║ 
-╚══════════════════════════════════════════╝
-)";
-const char* MENU_INSUMOS = R"(
-╔══════════════════════════════════════════╗
-║                                          ║
-║        SISTEMA DE GESTIÓN - INSUMOS      ║
-║                                          ║
 ╚══════════════════════════════════════════╝
 )";
 const char* MENU_PRODUCTOS = R"(
@@ -199,15 +192,13 @@ int UiConsole::mostrarMenuPrincipal()
 {
 	limpiarConsola();
 	std::cout << BOLD << "Usuario: " << VERDE << _nombreUsuario << RESET;
-	std::cout << MENU_PRINCIPAL << std::endl;
-
-	std::cout << ROJO << "1. " << RESET << SUBRAYADO << BOLD << "Gestión de Insumos" << std::endl;
-	std::cout << RESET << ROJO << "2. " << RESET << SUBRAYADO << BOLD << "Gestión de Productos" << std::endl;
-	std::cout << RESET << ROJO << "3. " << RESET << SUBRAYADO << BOLD << "Gestion de Clientes" << std::endl;
-	std::cout << RESET << ROJO << "4. " << RESET << SUBRAYADO << BOLD << "Gestion de Ventas" << std::endl;
-	std::cout << RESET << ROJO << "5. " << RESET << SUBRAYADO << BOLD << "Gestion de Usuarios" << std::endl;
-	std::cout << RESET << ROJO << "6. " << RESET << SUBRAYADO << BOLD << "Estadisticas" << std::endl;
-	std::cout << RESET << ROJO << "7. " << RESET << SUBRAYADO << BOLD << "Seguridad" << std::endl;
+	std::cout << MENU_PRINCIPAL << std::endl;	
+	std::cout << RESET << ROJO << "1. " << RESET << SUBRAYADO << BOLD << "Gestión de Productos" << std::endl;
+	std::cout << RESET << ROJO << "2. " << RESET << SUBRAYADO << BOLD << "Gestion de Clientes" << std::endl;
+	std::cout << RESET << ROJO << "3. " << RESET << SUBRAYADO << BOLD << "Gestion de Ventas" << std::endl;
+	std::cout << RESET << ROJO << "4. " << RESET << SUBRAYADO << BOLD << "Gestion de Usuarios" << std::endl;
+	std::cout << RESET << ROJO << "5. " << RESET << SUBRAYADO << BOLD << "Estadisticas" << std::endl;
+	std::cout << RESET << ROJO << "6. " << RESET << SUBRAYADO << BOLD << "Seguridad" << std::endl;
 	std::cout << RESET << "0. " << SUBRAYADO << BOLD << "Salir" << RESET << std::endl
 		<< std::endl;
 	std::cout << "Opción elegida: ";
@@ -217,7 +208,7 @@ int UiConsole::mostrarMenuPrincipal()
 
 	try {
 		int numero = std::stoi(opcion);
-		if (numero >= 0 && numero < 8) {
+		if (numero >= 0 && numero < 7) {
 			return numero;
 		}
 		else {
@@ -231,56 +222,7 @@ int UiConsole::mostrarMenuPrincipal()
 
 }
 
-int UiConsole::mostrarMenuInsumos()
-{
-	limpiarConsola();
-	std::cout << BOLD << "Usuario: " << VERDE << _nombreUsuario << RESET;
-	std::cout << MENU_INSUMOS << std::endl;
-	std::cout << ROJO << "1. " << RESET << SUBRAYADO << BOLD << "Dar de alta insumo" << std::endl;
-	std::cout << RESET << ROJO << "2. " << RESET << SUBRAYADO << BOLD << "Dar de baja insumo" << std::endl;
-	std::cout << RESET << ROJO << "3. " << RESET << SUBRAYADO << BOLD << "Modificar Insumo" << std::endl;
-	std::cout << RESET << ROJO << "4. " << RESET << SUBRAYADO << BOLD << "Stock de insumo" << std::endl;
-	std::cout << RESET << ROJO << "5. " << RESET << SUBRAYADO << BOLD << "Listar insumos" << std::endl;
-	std::cout << RESET << ROJO << "6. " << RESET << SUBRAYADO << BOLD << "buscar insumo" << std::endl;
-	std::cout << RESET << "0. " << SUBRAYADO << BOLD << "Volver al menú principal" << RESET << std::endl
-		<< std::endl;
-	std::cout << "Opción elegida: ";
 
-	std::string op;
-	std::getline(std::cin, op);
-	if (op == "0")
-	{
-		return 0;
-	}
-	else if (op == "1")
-	{
-		return 1;
-	}
-	else if (op == "2")
-	{
-		return 2;
-	}
-	else if (op == "3")
-	{
-		return 3;
-	}
-	else if (op == "4")
-	{
-		return 4;
-	}
-	else if (op == "5")
-	{
-		return 5;
-	}
-	else if (op == "6")
-	{
-		return 6;
-	}
-	else
-	{
-		return -1;
-	}
-}
 
 int UiConsole::mostrarMenuProductos()
 {
@@ -450,27 +392,27 @@ int UiConsole::mostrarMenuVentas()
 {
 	limpiarConsola();
 	std::cout << BOLD << "Usuario: " << VERDE << _nombreUsuario << RESET;
-	std::cout << MENU_VENTAS_FACTURACION << std::endl;	
+	std::cout << MENU_VENTAS_FACTURACION << std::endl;
 	std::cout << RESET << ROJO << "1. " << RESET << SUBRAYADO << BOLD << "Generar reporte de ventas" << std::endl;
-	std::cout << RESET << ROJO << "2. " << RESET << SUBRAYADO << BOLD << "Historial de ventas" << std::endl;	
+	std::cout << RESET << ROJO << "2. " << RESET << SUBRAYADO << BOLD << "Historial de ventas" << std::endl;
 	std::cout << RESET << "0. " << SUBRAYADO << BOLD << "Volver al menú principal" << RESET << std::endl
 		<< std::endl;
 	std::cout << "Opción elegida: ";
 
 	std::string opcion;
 	std::getline(std::cin, opcion);
-	
+
 	try {
 		int numero = std::stoi(opcion);
 		if (numero >= 0 && numero < 3) {
 			return numero;
 		}
 		else {
-			return -1; 
+			return -1;
 		}
 	}
 	catch (const std::invalid_argument& e) {
-		return -1; 
+		return -1;
 	}
 }
 
@@ -519,7 +461,7 @@ int UiConsole::mostrarMenuEstadisticas()
 	std::cout << MENU_ESTATISTICAS << std::endl;
 
 	std::cout << ROJO << "1. " << RESET << SUBRAYADO << BOLD << "Generar reporte de inventario productos" << std::endl;
-	std::cout << RESET << ROJO << "2. " << RESET << SUBRAYADO << BOLD << "Generar reporte de clientes" << std::endl;	
+	std::cout << RESET << ROJO << "2. " << RESET << SUBRAYADO << BOLD << "Generar reporte de clientes" << std::endl;
 	std::cout << RESET << ROJO << "3. " << RESET << SUBRAYADO << BOLD << "Generar reporte de ventas" << std::endl;
 	std::cout << RESET << "0. " << SUBRAYADO << BOLD << "Volver al menú principal" << RESET << std::endl
 		<< std::endl;
@@ -527,18 +469,18 @@ int UiConsole::mostrarMenuEstadisticas()
 
 	std::string opcion;
 	std::getline(std::cin, opcion);
-	
+
 	try {
 		int numero = std::stoi(opcion);
 		if (numero >= 0 && numero < 4) {
 			return numero;
 		}
 		else {
-			return -1; 
+			return -1;
 		}
 	}
 	catch (const std::invalid_argument& e) {
-		return -1; 
+		return -1;
 	}
 }
 
@@ -828,30 +770,62 @@ int UiConsole::mostrarMenuModificacionUsuario(Usuario& usuario)
 	}
 }
 
-// funcionalidades insumo
+// funcionalidades producto
 
 std::string UiConsole::pedirCodigo()
 {
-	std::cout << "Codigo: ";
-	std::string codigo;
-	std::getline(std::cin, codigo);
-	if (codigo.length() > 20 || codigo.length() == 0)
-	{
-		std::cout << "El codigo debe tener entre 1 y 20 letras alfanumericas" << std::endl;
-		return "";
+	bool salirDelMenu = false;
+
+	while (!salirDelMenu) {
+		std::string codigo;
+		std::cout << "Ingrese codigo de producto o 'Q' para salir de este menu: ";
+		std::getline(std::cin, codigo);
+
+		salirDelMenu = UiConsole::volverAlMenuAnterior(codigo);
+		if (salirDelMenu) return "";
+		
+		bool codigoValido = Producto::validarCodigoProducto(codigo); 
+
+		if (!codigoValido) {
+			std::cout << ROJO << "El codigo debe tener entre 1 y 20 caracteres alfanumericos. Ingreselo nuevamente." << RESET << std::endl;
+			continue;
+		}
+
+		return codigo;
 	}
-	return codigo;
+
 }
+
+
+
 
 Producto UiConsole::agregarProducto(std::string codigo, bool isInsumo)
 {
-	std::string tipoMedicion, descripcion = "";
-	std::cout << "Descripcion: ";
+	bool descripcionValida = false;
+	std::string  descripcion;
+	std::string stock; 
+
+	while (!descripcionValida) {
+	std::cout << "Ingrese descripcion del producto: ";
 	std::getline(std::cin, descripcion);
-	std::cout << "Tipo de medicion : ";
-	std::getline(std::cin, tipoMedicion);
-	Producto insumo(codigo, descripcion, tipoMedicion, 0, 0, !isInsumo);
-	return insumo;
+	descripcionValida = Producto::validarDescripcionProducto(descripcion);
+
+	if (!descripcionValida) {
+		std::cout << UiConsole::ROJO << "La descripcion debe tener entre 3 y 50 caracteres alfanumericos." << UiConsole::RESET << std::endl; 
+		continue; 
+	}
+	}
+	
+	bool stockValido = false; 
+
+	while (!stockValido) {
+		std::cout << "Ingrese stock del producto: ";
+		std::getline(std::cin, stock);
+		stockValido = Producto::validarStockProducto(stock);
+	}
+
+	Producto producto(codigo, descripcion, std::stoi(stock));
+	return producto;
 }
 
 void UiConsole::mostrarProductos(Producto* Productos, int cantidad)
@@ -861,7 +835,6 @@ void UiConsole::mostrarProductos(Producto* Productos, int cantidad)
 	std::cout << std::endl;
 	std::cout << std::setw(23) << "│ codigo";
 	std::cout << std::setw(23) << "│ descripcion";
-	std::cout << std::setw(23) << "│ tipo de medicion";
 	std::cout << std::setw(23) << "│ stock";
 	std::cout << std::setw(23) << "│";
 	std::cout << std::endl;
@@ -874,7 +847,6 @@ void UiConsole::mostrarProductos(Producto* Productos, int cantidad)
 		{
 			std::cout << std::setw(23) << "│ " + Productos[i].getCodigo();
 			std::cout << std::setw(23) << "│ " + Productos[i].getDescripcion();
-			std::cout << std::setw(23) << "│ " + Productos[i].getTipoMedicion();
 			std::cout << std::setw(23) << "│ " + std::to_string(Productos[i].getStock());
 			std::cout << "│";
 			std::cout << std::endl;
@@ -887,13 +859,14 @@ void UiConsole::mostrarProductos(Producto* Productos, int cantidad)
 
 int UiConsole::stockProducto()
 {
-	std::cout << "desea modificar stock? s/n :";
-	std::string resp;
-	std::getline(std::cin, resp);
-	if (resp != "s" && resp != "S")
+	std::cout << "desea modificar stock?(Y/N):";
+	std::string opcion;
+	std::getline(std::cin, opcion);
+	if (opcion == "n" && opcion == "N")
 	{
 		return -1;
 	}
+
 	std::cout << "Ingrese el nuevo stock : ";
 	int numero = 0;
 	if (pedirNumero(numero))
@@ -901,50 +874,6 @@ int UiConsole::stockProducto()
 		return numero;
 	}
 	return -1;
-}
-
-bool UiConsole::mostrarComposicion(Producto* insumos, int cantidad, Producto* producto)
-{
-	std::cout << std::left;
-	std::cout << std::endl;
-	std::cout << "Tabla de composicion: " << std::endl
-		<< std::endl;
-	std::cout << "┌────────────────────┬────────────────────┬────────────────────┬────────────────────┬────────────────────┐";
-	std::cout << std::endl;
-	std::cout << std::setw(23) << "│ codigo";
-	std::cout << std::setw(23) << "│ descripcion";
-	std::cout << std::setw(23) << "│ tipo de medicion";
-	std::cout << std::setw(23) << "│ stock";
-	std::cout << std::setw(23) << "│ cantidad x unidad";
-	std::cout << "│";
-	std::cout << std::endl;
-	std::cout << "├────────────────────┼────────────────────┼────────────────────┼────────────────────┼────────────────────┤";
-	std::cout << std::endl;
-
-	std::cout << std::setw(23) << "│ " + producto->getCodigo();
-	std::cout << std::setw(23) << "│ " + producto->getDescripcion();
-	std::cout << std::setw(23) << "│ " + producto->getTipoMedicion();
-	std::cout << std::setw(23) << "│ " + std::to_string(producto->getStock());
-	std::cout << std::setw(23) << "│▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒";
-	std::cout << std::setw(23) << "│ ";
-	std::cout << std::endl;
-	std::cout << "├────────────────────┼────────────────────┼────────────────────┼────────────────────┼────────────────────┤";
-	std::cout << std::endl;
-
-	for (int i = 0; i < cantidad; i++)
-	{
-		std::cout << std::setw(23) << "│ " + insumos[i].getCodigo();
-		std::cout << std::setw(23) << "│ " + insumos[i].getDescripcion();
-		std::cout << std::setw(23) << "│ " + insumos[i].getTipoMedicion();
-		std::cout << std::setw(23) << "│ " + std::to_string(insumos[i].getStock());
-		std::cout << std::setw(23) << "│ " + std::to_string(insumos[i].getFuturo());
-		std::cout << std::setw(23) << "│";
-		std::cout << std::endl;
-	}
-	std::cout << "└────────────────────┴────────────────────┴────────────────────┴────────────────────┴────────────────────┘";
-	std::cout << std::endl;
-	std::cout << std::endl;
-	return true;
 }
 
 bool UiConsole::pedirNumero(int& numResult)

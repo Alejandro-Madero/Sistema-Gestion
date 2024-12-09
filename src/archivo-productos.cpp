@@ -64,3 +64,5 @@ void ArchivoProducto::Leer(int cantidadRegistros, Producto *vector){
 const char* ArchivoProducto::getNombreArchivo() const {
     return "db/productos.dat"; 
 }
+
+

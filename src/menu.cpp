@@ -13,31 +13,27 @@ void Menu::menuPrincipal(Manager& manager, UiConsole& ui)
 		op = ui.mostrarMenuPrincipal();
 		switch (op)
 		{
-		case 1:
-			this->menuInsumo(manager, ui);
-			break;
-		case 2:
+		case 1:		
 			this->menuProductos(manager, ui);
 			break;
-		case 3:
+		case 2:
 			this->menuClientes(manager, ui);
 			break;
-
-		case 4:
+		case 3:
 			this->menuVentas(manager, ui);
 			break;
-		case 5:
+		case 4:
 			this->menuUsuarios(manager, ui);
 			break;
-		case 6:
+		case 5:
 			this->menuEstadisticas(manager, ui);
 			break;
-		case 7:
+		case 6:
 			this->menuSeguridad(manager, ui);
 			break;
-		case 0:
+		case 0:			
 			break;
-		default:
+		default:			
 			ui.opcionIncorrecta();
 			break;
 		}
@@ -77,50 +73,36 @@ void Menu::menuProductos(Manager& manager, UiConsole& ui)
 				ui.pausa();
 				return;
 			}
-			std::string codigoInsumo = ui.pedirCodigo();
-			if (codigoInsumo == "")
+
+			std::string codigoProducto = ui.pedirCodigo();
+			if (codigoProducto == "")
 			{
+				std::cout << UiConsole::ROJO << "El producto no pudo ser agregado correctamente. Intentelo nuevamente" << UiConsole::RESET << std::endl; 
 				ui.pausa();
 				return;
 			}
-			int pos = manager.buscarProducto(codigoInsumo);
+
+			int pos = manager.buscarProducto(codigoProducto);
 			if (pos >= 0)
 			{
-				std::cout << "El Producto ya existe" << std::endl;
+				std::cout << UiConsole::ROJO << "El codigo de producto ya existe. Intentelo nuevamente." << UiConsole::RESET << std::endl;
 				ui.pausa();
 				return;
 			}
-			if (pos == -3)
-			{
-				std::cout << "El codigo se esta usando como insumo" << std::endl;
-				ui.pausa();
-				return;
-			}
-			if (pos == -2)
-			{
-				std::cout << "El codigo esta mal escrito y no cumple con los criterios" << std::endl;
-				ui.pausa();
-				return;
-			}
-			if (pos == -4)
-			{
-				std::cout << "El producto esta borrado" << std::endl;
-				ui.pausa();
-				return;
-			}
-			Producto producto = ui.agregarProducto(codigoInsumo, true);
+			
+			Producto producto = ui.agregarProducto(codigoProducto, true);
 			if (producto.getCodigo() == "")
 			{
 				ui.pausa();
 				return;
 			}
-			if (manager.agregarProducto(producto) >= 0)
+			if (manager.guardarProductoBaseDatos(producto) == true )
 			{
-				std::cout << "Producto dado de alta correctamente" << std::endl;
+				std::cout << UiConsole::VERDE <<"Producto dado de alta correctamente." << UiConsole::RESET <<std::endl;
 			}
 			else
 			{
-				std::cout << "El producto no se pudo dar de alta" << std::endl;
+				std::cout << UiConsole::ROJO <<"El producto no se pudo dar de alta. Intentelo nuevamente." << UiConsole::RESET <<std::endl;
 			}
 			ui.pausa();
 			return;
@@ -229,7 +211,7 @@ void Menu::menuProductos(Manager& manager, UiConsole& ui)
 			delete producto;
 			std::cout << "Valor nuevo del producto : " << std::endl;
 			Producto productoModificado = ui.agregarProducto(codigo, false);
-			productoModificado.setOrigen(true);
+		
 			/*if (manager.modificarInsumo(productoModificado, pos))
 			{
 				std::cout << "Producto modificado correctamente" << std::endl;
@@ -403,268 +385,7 @@ void Menu::menuProductos(Manager& manager, UiConsole& ui)
 	} while (op);
 }
 
-void Menu::menuInsumo(Manager& manager, UiConsole& ui)
-{
-	auto agregarInsumo = [&]() -> void
-		{
-			if (!manager.esAdmin())
-			{
-				std::cout << "No tiene permisos para dar de alta un nuevo insumo" << std::endl;
-				ui.pausa();
-				return;
-			}
-			ui.limpiarConsola();
-			std::string codigoInsumo = ui.pedirCodigo();
-			if (codigoInsumo == "")
-			{
-				ui.pausa();
-				return;
-			}
-			int pos = manager.buscarInsumo(codigoInsumo);
-			if (pos >= 0)
-			{
-				std::cout << "El insumo ya existe" << std::endl;
-				ui.pausa();
-				return;
-			}
-			if (pos == -3)
-			{
-				std::cout << "El codigo se esta usando como producto" << std::endl;
-				ui.pausa();
-				return;
-			}
-			if (pos == -4)
-			{
-				std::cout << "El codigo del insumo esta borrado" << std::endl;
-				ui.pausa();
-				return;
-			}
-			Producto insumo = ui.agregarProducto(codigoInsumo, true);
-			if (insumo.getCodigo() == "")
-			{
-				ui.pausa();
-				return;
-			}
-			if (manager.agregarInsumo(insumo) >= 0)
-			{
-				std::cout << "Insumo dado de alta correctamente" << std::endl;
-			}
-			else
-			{
-				std::cout << "El insumo no se pudo dar de alta" << std::endl;
-			}
-			ui.pausa();
-			return;
-		};
-	auto borraInsumo = [&]() -> void
-		{
-			ui.limpiarConsola();
-			if (!manager.esAdmin())
-			{
-				std::cout << "No tiene permisos para borrar insumos" << std::endl;
-				ui.pausa();
-				return;
-			}
-			std::string codigoInsumo = ui.pedirCodigo();
-			if (codigoInsumo == "")
-			{
-				ui.pausa();
-				return;
-			}
-			int pos = manager.buscarInsumo(codigoInsumo);
-			if (pos < 0)
-			{
-				std::cout << "El insumo no existe" << std::endl;
-				ui.pausa();
-				return;
-			}
-			if (manager.borrarInsumo(pos))
-			{
-				std::cout << "Insumo se borro correctamente" << std::endl;
-			}
-			else
-			{
-				std::cout << "No se pudo borrar el insumo" << std::endl;
-			}
-			ui.pausa();
-			return;
-		};
-	auto listaInsumos = [&]() -> void
-		{
-			ui.limpiarConsola();
-			int cantidad = 0;
-			Producto* insumos = nullptr;
-			if (!manager.listaProductos(0, 0, false, false, insumos, cantidad))
-			{
-				std::cout << "No hay insumos" << std::endl;
-				ui.pausa();
-				return;
-			}
-			ui.mostrarProductos(insumos, cantidad);
-			delete[] insumos;
-			ui.pausa();
-			return;
-		};
-	auto modificarInsumo = [&]() -> void
-		{
-			ui.limpiarConsola();
-			if (!manager.esAdmin())
-			{
-				std::cout << "No tiene permisos para modificar insumos" << std::endl;
-				ui.pausa();
-				return;
-			}
-			std::string codigo = ui.pedirCodigo();
-			if (codigo == "")
-			{
-				std::cout << "codigo incorrecto" << std::endl;
-				ui.pausa();
-				return;
-			}
-			int pos = manager.buscarInsumo(codigo);
-			if (pos == -4)
-			{
-				std::cout << "El codigo del insumo esta borrado" << std::endl;
-				ui.pausa();
-				return;
-			}
-			if (pos < 0)
-			{
-				std::cout << "El insumo no existe" << std::endl;
-				ui.pausa();
-				return;
-			}
-			Producto* insumo = new Producto(manager.getProducto(pos));
-			if (insumo == nullptr)
-			{
-				std::cout << "no hay memoria disponible" << std::endl;
-				ui.pausa();
-				return;
-			}
-			std::cout << "Valor actual del insumo : " << std::endl;
-			ui.mostrarProductos(insumo, 1);
-			delete insumo;
-			std::cout << "Valor nuevo del insumo : " << std::endl;
-			Producto insumoModificado = ui.agregarProducto(codigo, true);
-			if (manager.modificarInsumo(insumoModificado, pos))
-			{
-				std::cout << "Insumo modificado correctamente" << std::endl;
-			}
-			else
-			{
-				std::cout << "No se pudo modificar el insumo" << std::endl;
-			}
-			ui.pausa();
-			return;
-		};
-	auto buscarInsumo = [&]() -> void
-		{
-			ui.limpiarConsola();
-			std::string codigoInsumo = ui.pedirCodigo();
-			if (codigoInsumo == "")
-			{
-				ui.pausa();
-				return;
-			}
-			int pos = manager.buscarInsumo(codigoInsumo);
-			if (pos < 0)
-			{
-				std::cout << "El insumo no existe" << std::endl;
-				ui.pausa();
-				return;
-			}
-			Producto* insumo = new Producto(manager.getProducto(pos));
-			if (insumo == nullptr)
-			{
-				std::cout << "no hay memoria disponible" << std::endl;
-				ui.pausa();
-				return;
-			}
-			ui.mostrarProductos(insumo, 1);
-			delete insumo;
-			ui.pausa();
-			return;
-		};
-	auto stock = [&]() -> void
-		{
-			ui.limpiarConsola();
-			std::string codigoInsumo = ui.pedirCodigo();
-			if (codigoInsumo == "")
-			{
-				ui.pausa();
-				return;
-			}
-			int pos = manager.buscarInsumo(codigoInsumo);
-			if (pos < 0)
-			{
-				std::cout << "El insumo no existe" << std::endl;
-				ui.pausa();
-				return;
-			}
-			Producto* insumo = new Producto(manager.getProducto(pos));
-			if (insumo == nullptr)
-			{
-				std::cout << "no hay memoria disponible" << std::endl;
-				ui.pausa();
-				return;
-			}
-			ui.mostrarProductos(insumo, 1);
-			delete insumo;
-			int stock = ui.stockProducto();
-			if (stock < 0)
-			{
-				ui.pausa();
-				return;
-			}
-			if (!manager.esAdmin())
-			{
-				ui.pausa();
-				return;
-			}
-			if (manager.modificarStockInsumo(stock, pos))
-			{
-				std::cout << "Stock modificado correctamente" << std::endl;
-			}
-			else
-			{
-				std::cout << "No se pudo modificar el stock" << std::endl;
-			}
-			ui.pausa();
-			return;
-		};
-	int op;
-	do
-	{
-		op = ui.mostrarMenuInsumos();
-		switch (op)
-		{
-		case 1:
-			agregarInsumo();
-			break;
-		case 2:
-			borraInsumo();
-			break;
-		case 3: //
-			modificarInsumo();
-			break;
-		case 4:
-			stock();
-			break;
-		case 5:
-			listaInsumos();
-			break;
-		case 6:
-			buscarInsumo();
-			break;
-		case 0:
-			break;
-		default:
-			ui.opcionIncorrecta();
-			break;
-		}
 
-	} while (op);
-}
 
 
 void Menu::menuClientes(Manager& manager, UiConsole& ui)
