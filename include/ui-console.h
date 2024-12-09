@@ -42,11 +42,14 @@ class UiConsole {
    void mostrarPerfil(Usuario& usuario, bool root);
    std::string mostrarRol(char rol); 
 
-
+   //PRODUCTO
    std::string pedirCodigoProducto();
    Producto agregarProducto(std::string codigo,bool isInsumo);
+   int mostrarMenuModificacionProducto(Producto& producto);
    void mostrarProductos(Producto* insumos,int cantidad);
+   void mostrarProducto(Producto& producto);
    int stockProducto();
+   void procesarActualizacionProducto(Manager& manager, Producto& producto, int posicionProducto, std::string campo);
  
 
   private:

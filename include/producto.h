@@ -1,6 +1,9 @@
 #pragma once
 #include <iostream>
 
+
+class Manager; 
+
 class Producto {
   public:  
 	Producto();

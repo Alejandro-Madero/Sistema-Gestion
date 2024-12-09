@@ -13,7 +13,7 @@ void Menu::menuPrincipal(Manager& manager, UiConsole& ui)
 		op = ui.mostrarMenuPrincipal();
 		switch (op)
 		{
-		case 1:		
+		case 1:
 			this->menuProductos(manager, ui);
 			break;
 		case 2:
@@ -31,9 +31,9 @@ void Menu::menuPrincipal(Manager& manager, UiConsole& ui)
 		case 6:
 			this->menuSeguridad(manager, ui);
 			break;
-		case 0:			
+		case 0:
 			break;
-		default:			
+		default:
 			ui.opcionIncorrecta();
 			break;
 		}
@@ -77,7 +77,7 @@ void Menu::menuProductos(Manager& manager, UiConsole& ui)
 			std::string codigoProducto = ui.pedirCodigoProducto();
 			if (codigoProducto == "")
 			{
-				std::cout << UiConsole::ROJO << "El producto no pudo ser agregado correctamente. Intentelo nuevamente" << UiConsole::RESET << std::endl; 
+				std::cout << UiConsole::ROJO << "El producto no pudo ser agregado correctamente. Intentelo nuevamente" << UiConsole::RESET << std::endl;
 				ui.pausa();
 				return;
 			}
@@ -89,20 +89,20 @@ void Menu::menuProductos(Manager& manager, UiConsole& ui)
 				ui.pausa();
 				return;
 			}
-			
+
 			Producto producto = ui.agregarProducto(codigoProducto, true);
 			if (producto.getCodigo() == "")
 			{
 				ui.pausa();
 				return;
 			}
-			if (manager.guardarProductoBaseDatos(producto) == true )
+			if (manager.guardarProductoBaseDatos(producto) == true)
 			{
-				std::cout << UiConsole::VERDE <<"Producto dado de alta correctamente." << UiConsole::RESET <<std::endl;
+				std::cout << UiConsole::VERDE << "Producto dado de alta correctamente." << UiConsole::RESET << std::endl;
 			}
 			else
 			{
-				std::cout << UiConsole::ROJO <<"El producto no se pudo dar de alta. Intentelo nuevamente." << UiConsole::RESET <<std::endl;
+				std::cout << UiConsole::ROJO << "El producto no se pudo dar de alta. Intentelo nuevamente." << UiConsole::RESET << std::endl;
 			}
 			ui.pausa();
 			return;
@@ -112,7 +112,7 @@ void Menu::menuProductos(Manager& manager, UiConsole& ui)
 			ui.limpiarConsola();
 			if (!manager.esAdmin())
 			{
-				std::cout << "No tiene permisos para borrar productos" << std::endl;
+				std::cout << "No tiene permisos para borrar productos." << std::endl;
 				ui.pausa();
 				return;
 			}
@@ -123,30 +123,30 @@ void Menu::menuProductos(Manager& manager, UiConsole& ui)
 				ui.pausa();
 				return;
 			}
-			
+
 			int posicionProducto = manager.buscarProducto(codigoProducto);
 			if (posicionProducto < 0)
 			{
-				std::cout << UiConsole::ROJO <<  "El codigo de producto ingresado no existe. Intentelo nuevamente." << UiConsole::RESET<< std::endl;
+				std::cout << UiConsole::ROJO << "El codigo de producto ingresado no existe. Intentelo nuevamente." << UiConsole::RESET << std::endl;
 				ui.pausa();
 				return;
 			}
 
-			Producto producto = manager.getProducto(posicionProducto); 
+			Producto producto = manager.getProducto(posicionProducto);
 
 			if (producto.getEstaBorrado()) {
-				std::cout << UiConsole::ROJO << "El Producto ya se encuentra eliminado." << UiConsole::RESET <<std::endl;
-				ui.pausa(); 
+				std::cout << UiConsole::ROJO << "El Producto ya se encuentra eliminado." << UiConsole::RESET << std::endl;
+				ui.pausa();
 				return;
 			}
 
-			if (manager.borrarProducto(producto,posicionProducto))
+			if (manager.borrarProducto(producto, posicionProducto))
 			{
-				std::cout << UiConsole::VERDE <<"El Producto se borro correctamente." << UiConsole::RESET << std::endl;
+				std::cout << UiConsole::VERDE << "El Producto se borro correctamente." << UiConsole::RESET << std::endl;
 			}
 			else
 			{
-				std::cout << UiConsole::ROJO << "No se pudo borrar el producto. Intentelo nuevamente." << UiConsole::RESET <<  std::endl;
+				std::cout << UiConsole::ROJO << "No se pudo borrar el producto. Intentelo nuevamente." << UiConsole::RESET << std::endl;
 			}
 			ui.pausa();
 			return;
@@ -156,187 +156,178 @@ void Menu::menuProductos(Manager& manager, UiConsole& ui)
 			ui.limpiarConsola();
 			if (!manager.esAdmin())
 			{
-				std::cout << "No tiene permisos para modificar productos" << std::endl;
+				std::cout << "No tiene permisos para modificar productos." << std::endl;
 				ui.pausa();
 				return;
 			}
-			std::string codigo = ui.pedirCodigoProducto();
-			if (codigo == "")
-			{
-				std::cout << "codigo incorrecto" << std::endl;
-				ui.pausa();
-				return;
-			}
-			int pos = manager.buscarProducto(codigo);
-			if (pos == -3)
-			{
-				std::cout << "El codigo se esta usando como insumo" << std::endl;
-				ui.pausa();
-				return;
-			}
-			if (pos == -2)
-			{
-				std::cout << "El codigo esta mal escrito y no cumple con los criterios" << std::endl;
-				ui.pausa();
-				return;
-			}
-			if (pos == -4)
-			{
-				std::cout << "El producto esta borrado" << std::endl;
-				ui.pausa();
-				return;
-			}
-			if (pos < 0)
-			{
-				std::cout << "El producto no existe" << std::endl;
-				ui.pausa();
-				return;
-			}
-			Producto* producto = new Producto(manager.getProducto(pos));
-			if (producto == nullptr)
-			{
-				std::cout << "no hay memoria disponible" << std::endl;
-				ui.pausa();
-				return;
-			}
-			std::cout << "Valor actual del producto : " << std::endl;
-			ui.mostrarProductos(producto, 1);
-			delete producto;
-			std::cout << "Valor nuevo del producto : " << std::endl;
-			Producto productoModificado = ui.agregarProducto(codigo, false);
-		
-			/*if (manager.modificarInsumo(productoModificado, pos))
-			{
-				std::cout << "Producto modificado correctamente" << std::endl;
-			}
-			else
-			{
-				std::cout << "No se pudo modificar el Producto" << std::endl;
-			}*/
-			ui.pausa();
-			return;
-		};
-	auto stockProducto = [&]() -> void
-		{
-			ui.limpiarConsola();
+
 			std::string codigoProducto = ui.pedirCodigoProducto();
 			if (codigoProducto == "")
 			{
+				std::cout << UiConsole::ROJO << "El producto no pudo ser modificado correctamente. Intentelo nuevamente" << UiConsole::RESET << std::endl;
 				ui.pausa();
 				return;
 			}
-			int pos = manager.buscarProducto(codigoProducto);
-			if (pos == -3)
+
+			int posicionProducto = manager.buscarProducto(codigoProducto);
+
+			if (posicionProducto < 0)
 			{
-				std::cout << "El codigo se esta usando como insumo" << std::endl;
+				std::cout << UiConsole::ROJO << "El codigo de producto ingresado no existe. Intentelo nuevamente." << UiConsole::RESET << std::endl;
 				ui.pausa();
 				return;
 			}
-			if (pos == -2)
-			{
-				std::cout << "El codigo esta mal escrito y no cumple con los criterios" << std::endl;
-				ui.pausa();
+
+			Producto producto = manager.getProducto(posicionProducto);
+			if (producto.getEstaBorrado()) {
+				std::cout << UiConsole::ROJO << "El producto se encuentra borrado, debe recuperarlo antes de modificarlo." << UiConsole::RESET << std::endl;
+			}
+
+			bool modificandoProducto = true;
+
+			while (modificandoProducto) {
+
+				int opcion = ui.mostrarMenuModificacionProducto(producto);
+
+				switch (opcion)
+				{
+				case 1: {
+					//codigo
+					ui.limpiarConsola();
+					std::string codigoProducto;
+					Producto* productos = manager.leerProductos(); 
+					int cantidadProductos = manager.getCantidadProductos();
+					std::cout << "Ingrese el nuevo código de producto: ";
+					std::getline(std::cin, codigoProducto);
+
+					//validar si el codigo es correcto
+					bool codigoCorrecto = Producto::validarCodigoProducto(codigoProducto);
+
+					//validar si ya existe el codigo: 
+					int codigoExistente = manager.buscarProducto(codigoProducto);
+
+					if (!codigoCorrecto || codigoExistente >= 0) {
+						std::cout << UiConsole::ROJO << "El codigo de producto no pudo ser actualizado correctamente porque es incorrecto o ya existe. Intentelo nuevamente." << UiConsole::RESET << std::endl;
+						ui.pausa();
+					}
+					else {
+						producto.setCodigo(codigoProducto);
+						ui.procesarActualizacionProducto(manager, producto, posicionProducto, "codigo");
+					}
+					break;
+				}
+				case 2: {
+					//descripcion
+					ui.limpiarConsola();
+					std::string descripcionProducto;
+					std::cout << "Ingrese la nueva descripción del producto: ";
+					std::getline(std::cin, descripcionProducto);
+
+					bool descripcionCorrecta = Producto::validarDescripcionProducto(descripcionProducto);
+					if (!descripcionCorrecta) {
+						std::cout << UiConsole::ROJO << "La descripcion del producto no pudo ser actualizada correctamente. Intentelo nuevamente." << UiConsole::RESET << std::endl;
+						ui.pausa();
+					}
+					else {
+						producto.setDescripcion(descripcionProducto);
+						ui.procesarActualizacionProducto(manager, producto, posicionProducto, "descripcion");
+					}
+					break;
+				}
+				case 3: {
+					//stock
+					ui.limpiarConsola();
+					std::string stockProducto;
+					std::cout << "Ingrese el nuevo stock del producto: ";
+					std::getline(std::cin, stockProducto);
+
+					bool stockCorrecto = Producto::validarStockYPrecioProducto(stockProducto);
+					if (!stockCorrecto) {
+						std::cout << UiConsole::ROJO << "El stock del producto no pudo ser actualizado correctamente. Intentelo nuevamente." << UiConsole::RESET << std::endl;
+						ui.pausa();
+					}
+					else {
+						producto.setStock(std::stoi(stockProducto));
+						ui.procesarActualizacionProducto(manager, producto, posicionProducto, "stock");
+					}
+					break;
+				}
+
+				case 4: {
+					//precio
+					ui.limpiarConsola();
+					std::string precioProducto;
+					std::cout << "Ingrese el nuevo precio del producto: ";
+					std::getline(std::cin, precioProducto);
+
+					bool precioCorrecto = Producto::validarStockYPrecioProducto(precioProducto);
+					if (!precioCorrecto) {
+						std::cout << UiConsole::ROJO << "El precio del producto no pudo ser actualizado correctamente. Intentelo nuevamente." << UiConsole::RESET << std::endl;
+						ui.pausa();
+					}
+					else {
+						producto.setPrecio(std::stoi(precioProducto));
+						ui.procesarActualizacionProducto(manager, producto, posicionProducto, "precio");
+					}
+					break;
+				}
+				case 0: {
+					modificandoProducto = false;
+					break;
+				}
+				default:
+				{
+					std::cout << UiConsole::ROJO << "La opcion ingresada es incorrecta. Intentelo nuevamente." << UiConsole::RESET << std::endl;
+					ui.pausa();
+					break;
+				}
 				return;
+				}
 			}
-			if (pos == -4)
-			{
-				std::cout << "El producto esta borrado" << std::endl;
-				ui.pausa();
-				return;
-			}
-			if (pos < 0)
-			{
-				std::cout << "El producto no existe" << std::endl;
-				ui.pausa();
-				return;
-			}
-			Producto* producto = new Producto(manager.getProducto(pos));
-			if (producto == nullptr)
-			{
-				std::cout << "no hay memoria disponible" << std::endl;
-				ui.pausa();
-				return;
-			}
-			ui.mostrarProductos(producto, 1);
-			delete producto;
-			int stock = ui.stockProducto();
-			if (stock < 0)
-			{
-				ui.pausa();
-				return;
-			}
-			if (!manager.esAdmin())
-			{
-				ui.pausa();
-				return;
-			}
-			/*if (manager.modificarStockInsumo(stock, pos))
-			{
-				std::cout << "Stock modificado correctamente" << std::endl;
-			}
-			else
-			{
-				std::cout << "No se pudo modificar el stock" << std::endl;
-			}*/
-			ui.pausa();
-			return;
 		};
 	auto listaProductos = [&]() -> void
 		{
-			ui.limpiarConsola();			
-			
-			Producto* productos = manager.leerProductos(); 
-			int cantidadProductos = manager.getCantidadProductos(); 
+			ui.limpiarConsola();
 
-			ui.mostrarProductos(productos, cantidadProductos); 
-			
+			Producto* productos = manager.leerProductos();
+			int cantidadProductos = manager.getCantidadProductos();
+
+			ui.mostrarProductos(productos, cantidadProductos);
+
 			ui.pausa();
-			return; 
+			return;
 		};
 	auto buscarProducto = [&]() -> void
 		{
 			ui.limpiarConsola();
+			
 			std::string codigoProducto = ui.pedirCodigoProducto();
+
 			if (codigoProducto == "")
 			{
+				std::cout << UiConsole::ROJO << "El producto no pudo ser encontrado. Intentelo nuevamente" << UiConsole::RESET << std::endl;
 				ui.pausa();
 				return;
 			}
-			int pos = manager.buscarProducto(codigoProducto);
-			if (pos == -3)
+
+
+			int posicionProducto = manager.buscarProducto(codigoProducto);
+
+			if (posicionProducto < 0)
 			{
-				std::cout << "El codigo se esta usando como insumo" << std::endl;
+				std::cout << UiConsole::ROJO << "El codigo de producto ingresado no existe. Intentelo nuevamente." << UiConsole::RESET << std::endl;
 				ui.pausa();
 				return;
 			}
-			if (pos == -2)
-			{
-				std::cout << "El codigo esta mal escrito y no cumple con los criterios" << std::endl;
-				ui.pausa();
-				return;
-			}
-			if (pos == -4)
-			{
-				std::cout << "El producto esta borrado" << std::endl;
-				ui.pausa();
-				return;
-			}
-			if (pos < 0)
-			{
-				std::cout << "El producto no existe" << std::endl;
-				ui.pausa();
-				return;
-			}
-			Producto* producto = new Producto(manager.getProducto(pos));
-			if (producto == nullptr)
-			{
-				std::cout << "no hay memoria disponible" << std::endl;
-				ui.pausa();
-				return;
-			}
-			ui.mostrarProductos(producto, 1);
-			delete producto;
-			ui.pausa();
+
+			Producto producto = manager.getProducto(posicionProducto);
+
+			ui.mostrarProducto(producto); 
+
+			std::cout << std::endl; 
+
+			ui.pausa(); 
+
 			return;
 		};
 
@@ -356,12 +347,9 @@ void Menu::menuProductos(Manager& manager, UiConsole& ui)
 			modificarProducto();
 			break;
 		case 4:
-			stockProducto();
-			break;
-		case 5:
 			listaProductos();
 			break;
-		case 6:
+		case 5:
 			buscarProducto();
 			break;
 		case 0:
@@ -610,38 +598,7 @@ void Menu::menuUsuarios(Manager& manager, UiConsole& ui)
 
 					}
 					break;
-				}
-
-				case 5: {
-					//Telefono: 
-					ui.limpiarConsola();
-					bool telefonoActualizadoCorrectamente = usuarioAModificar.actualizarTelefono(manager);
-
-					if (!telefonoActualizadoCorrectamente) {
-						std::cout << UiConsole::ROJO << "El telefono no pudo ser actualizado correctamente. Intentelo nuevamente." << UiConsole::RESET << std::endl;
-						ui.pausa();
-					}
-					else {
-						ui.procesarActualizacionUsuario(manager, usuarioAModificar, posicionUsuario, "telefono");
-					}
-					break;
-				}
-
-				case 6: {
-					//Password:
-					ui.limpiarConsola();
-					bool contraseniaModificada = usuarioAModificar.modificarContrasenia(true);
-					if (!contraseniaModificada) {
-						std::cout << UiConsole::ROJO << "La contraseña no pudo ser modificada. Intentelo nuevamente." << UiConsole::RESET << std::endl;
-						ui.pausa();
-
-					}
-					else {
-						ui.procesarActualizacionUsuario(manager, usuarioAModificar, posicionUsuario, "contraseña");
-					}
-					break;
-				}
-				case 7: {
+				}case 7: {
 					//ROL
 					ui.limpiarConsola();
 					bool rolModificado = usuarioAModificar.actualizarRol();
@@ -844,7 +801,7 @@ void Menu::menuUsuarios(Manager& manager, UiConsole& ui)
 			std::cout << std::endl;
 
 			ui.pausa();
-			
+
 			return;
 		};
 	auto recuperarUsuario = [&]() {

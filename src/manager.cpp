@@ -235,3 +235,7 @@ void Manager::setUsarioLoggeado(Usuario usuario) {
 int Manager::getCantidadProductos() {
 	return this->archivoProductos.getCantidadRegistros(); 
 };
+
+bool Manager::reescribirProducto(Producto producto, int posicion) {
+	return this->archivoProductos.guardar(producto, posicion);
+}

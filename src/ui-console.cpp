@@ -133,6 +133,14 @@ const char* MENU_EDITAR_USUARIO = R"(
 ╚══════════════════════════════════════════╝
 )";
 
+const char* MENU_EDITAR_PRODUCTO = R"(
+╔══════════════════════════════════════════╗
+║                                          ║
+║             EDITAR PRODUCTO              ║
+║                                          ║
+╚══════════════════════════════════════════╝
+)";
+
 
 const char* MENU_ESTATISTICAS = R"(
 ╔══════════════════════════════════════════╗
@@ -232,10 +240,9 @@ int UiConsole::mostrarMenuProductos()
 
 	std::cout << ROJO << "1. " << RESET << SUBRAYADO << BOLD << "Dar de alta producto" << std::endl;
 	std::cout << RESET << ROJO << "2. " << RESET << SUBRAYADO << BOLD << "Dar de baja producto" << std::endl;
-	std::cout << RESET << ROJO << "3. " << RESET << SUBRAYADO << BOLD << "Modificar Producto" << std::endl;
-	std::cout << RESET << ROJO << "4. " << RESET << SUBRAYADO << BOLD << "Actualizar stock de producto" << std::endl;
-	std::cout << RESET << ROJO << "5. " << RESET << SUBRAYADO << BOLD << "Listar productos" << std::endl;
-	std::cout << RESET << ROJO << "6. " << RESET << SUBRAYADO << BOLD << "buscar producto" << std::endl;
+	std::cout << RESET << ROJO << "3. " << RESET << SUBRAYADO << BOLD << "Editar producto" << std::endl;
+	std::cout << RESET << ROJO << "4. " << RESET << SUBRAYADO << BOLD << "Listar productos" << std::endl;
+	std::cout << RESET << ROJO << "5. " << RESET << SUBRAYADO << BOLD << "Buscar producto" << std::endl;
 	std::cout << RESET << "0. " << SUBRAYADO << BOLD << "Volver al menú principal" << RESET << std::endl
 		<< std::endl;
 	std::cout << "Opción elegida: ";
@@ -784,9 +791,10 @@ std::string UiConsole::pedirCodigoProducto()
 		salirDelMenu = UiConsole::volverAlMenuAnterior(codigo);
 		if (salirDelMenu) return "";
 		
+		
 		bool codigoValido = Producto::validarCodigoProducto(codigo); 
 
-		if (!codigoValido) {
+		if(!codigoValido) {
 			std::cout << ROJO << "El codigo debe tener entre 1 y 20 caracteres alfanumericos. Ingreselo nuevamente." << RESET << std::endl;
 			continue;
 		}
@@ -844,6 +852,7 @@ void UiConsole::mostrarProductos(Producto* productos, int cantidadProductos)
 << std::endl;
 
 	for (size_t i = 0; i < cantidadProductos; i++) {
+		if (productos[i].getEstaBorrado()) continue;
 		std::cout << "| " << std::left << std::setw(13) << productos[i].getCodigo(); 
 		std::cout << "| " << std::left << std::setw(33) << productos[i].getDescripcion();
 		std::cout << "| " << std::left << std::setw(12) << productos[i].getStock();
@@ -915,7 +924,70 @@ void UiConsole::procesarActualizacionUsuario(Manager& manager, Usuario& usuario,
 		this->pausa();
 	}
 	else {
-		std::cout << ROJO << "Ocurrio un error al guardar los cambios. Intentelo nuevamente." << RESET << std::endl;
+		std::cout << ROJO << mensajeFracaso << RESET << std::endl;
+		this->pausa();
+	}
+}
+
+int UiConsole::mostrarMenuModificacionProducto(Producto& producto)
+{
+	limpiarConsola();
+	std::cout << BOLD << "Usuario: " << VERDE << _nombreUsuario << RESET;
+	std::cout << MENU_EDITAR_PRODUCTO << std::endl;
+
+	this->mostrarProducto(producto);
+
+	std::cout << std::endl << ROJO << "1. " << RESET << SUBRAYADO << BOLD << "Codigo" << std::endl;
+	std::cout << RESET << ROJO << "2. " << RESET << SUBRAYADO << BOLD << "Descripcion" << std::endl;
+	std::cout << RESET << ROJO << "3. " << RESET << SUBRAYADO << BOLD << "Stock" << std::endl;
+	std::cout << RESET << ROJO << "4. " << RESET << SUBRAYADO << BOLD << "Precio" << std::endl;
+	std::cout << RESET << ROJO << "0. " << RESET << SUBRAYADO << BOLD << "Volver al menú anterior" << RESET <<std::endl << std::endl;
+	std::string opcion;
+	std::cout << "Opción elegida:"; 
+	std::getline(std::cin, opcion);
+
+	try {
+		int numero = std::stoi(opcion);
+		if (numero >= 0 && numero < 5) {
+			return numero;
+		}
+		else {
+			return -1;
+		}
+
+	}
+	catch (const std::invalid_argument& e) {
+		return -1;
+	}
+}
+
+
+void UiConsole::mostrarProducto(Producto& producto) {
+	bool productoBorrado = producto.getEstaBorrado(); 
+
+	std::cout << std::endl << VERDE << "Codigo: " << RESET << producto.getCodigo() << std::endl;
+	std::cout << VERDE << "Descripcion: " << RESET << producto.getDescripcion() << std::endl;
+	std::cout << VERDE << "Stock: " << RESET << producto.getStock() << std::endl;
+	std::cout << VERDE << "Precio: " << RESET << producto.getPrecio() << std::endl;
+	std::cout << VERDE << "Producto activo: " << RESET << (productoBorrado ? "No" : "Si") << std::endl;
+	
+}
+
+void UiConsole::procesarActualizacionProducto(Manager& manager, Producto& producto, int posicionProducto, std::string campo) {
+
+	std::string articulo = campo == "descripcion" ? "La " : "El ";
+	std::string modificacion = campo == "descripcion" ? "modificada " : "modificado ";
+	//Mensajes
+	std::string mensajeExito = articulo + campo + " fue " + modificacion + "exitosamente";
+	std::string mensajeFracaso = "Ocurrio un error al guardar los cambios. Intentelo nuevamente.";
+
+	bool usuarioGuardadoExitosamente = manager.reescribirProducto(producto, posicionProducto);
+	if (usuarioGuardadoExitosamente) {
+		std::cout << VERDE << mensajeExito << RESET << std::endl;		
+		this->pausa();
+	}
+	else {
+		std::cout << ROJO << mensajeFracaso << RESET << std::endl;
 		this->pausa();
 	}
 }

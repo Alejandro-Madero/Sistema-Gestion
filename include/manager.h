@@ -2,7 +2,7 @@
 #include <iostream>
 #include "fecha.h"
 #include "persona.h"
-#include "Producto.h"
+#include "producto.h"
 #include "cliente.h"
 #include "usuario.h"
 #include "orden.h"
@@ -48,11 +48,10 @@ public:
 	
 	int buscarProducto(std::string codigo);
 	bool guardarProductoBaseDatos(Producto Producto);
-	bool borrarProducto(Producto& producto, int posicion);	
-	bool modificarProducto(Producto Producto, int posicion);
+	bool borrarProducto(Producto& producto, int posicion);		
 	bool modificarStockProducto(int stock, int posicion);
 	int getCantidadProductos(); 
-	
+	bool reescribirProducto(Producto producto, int posicion);
 	
 	Producto getProducto(int pos);
 	Producto* leerProductos();

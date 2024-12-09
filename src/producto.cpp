@@ -49,7 +49,8 @@ void Producto::setEstaBorrado(bool borrado) {
 	this->_estaBorrado = borrado;
 }
 
-bool Producto::validarCodigoProducto(std::string codigo) {
+bool Producto::validarCodigoProducto(std::string codigo) {	
+
 	if (codigo.length() > 20 || codigo.length() == 0)
 	{
 		return false;
@@ -86,3 +87,4 @@ bool Producto::validarDescripcionProducto(std::string descripcion) {
  void Producto::aumentarStock(int ingresos) {
 	 this->_stock = this->_stock + ingresos;
  }
+
