@@ -4,24 +4,18 @@
 #include "persona.h"
 #include "recurso.h"
 #include "cliente.h"
-#include "proveedor.h"
 #include "usuario.h"
 #include "orden.h"
 #include "orden-compra.h"
 #include "orden-produccion.h"
 #include "orden-venta.h"
 #include "movimientos.h"
-#include "factura.h"
 #include "composicion-movimientos.h"
 #include "composicion-orden.h"
 #include "composicion-producto.h"
-#include "composicion-factura.h"
 #include "archivo-cliente.h"
-#include "archivo-composicion-factura.h"
 #include "archivo-composicion-movimiento.h"
 #include "archivo-composicion-orden.h"
-#include "archivo-composicion-producto.h"
-#include "archivo-factura.h"
 #include "archivo-movimientos.h"
 #include "archivo-orden-compra.h"
 #include "archivo-orden-produccion.h"
@@ -55,40 +49,34 @@ public:
 	bool esAdmin();
 	bool esComprador();
 	bool esVendedor();
+	Usuario getUsuarioLoggeado();
 	void setUsarioLoggeado(Usuario usuario);
 
 	//funcionalidades insumos
+	
 	int buscarInsumo(std::string codigo);
 	int agregarInsumo(Recurso insumo);
-	bool borrarInsumo(int pos);
-	bool estaBorrado(int pos);
+	bool borrarInsumo(int pos);	
 	bool modificarInsumo(Recurso insumo, int pos);
 	bool modificarStockInsumo(int stock, int pos);
-
+	
+	
+	
 	Recurso getRecurso(int pos);
 	bool listaRecursos(int pos, int cantidad, bool isProducto, bool borrado, Recurso*& vector, int& vectorSize);
 	//funcionalidades productos
 	int buscarProducto(std::string codigo);
 	int agregarProducto(Recurso producto);
 	bool borrarProducto(int pos);
-	bool modificarStockRecurso(int stock, int pos);
-	bool getComposicionProducto(int pos, Recurso*& vector, int& composicionSize, std::string codigo);
-	bool setComposicionProducto(std::string idProducto, std::string idInsumo, int cantidad);
-	Usuario getUsuarioLoggeado();
-
+	bool modificarStockRecurso(int stock, int pos);	
+	
 private:
-	ArchivoCliente archivoCliente;
-	ArchivoComposicionFactura archivoComposicionFactura;
+	ArchivoCliente archivoCliente;	
 	ArchivoComposicionMovimientos archivoComposicionMovimientos;
-	ArchivoComposicionOrden archivoComposicionOrden;
-	ArchivoComposicionProducto archivoComposicionProducto;
-	ArchivoFactura archivoFactura;
+	ArchivoComposicionOrden archivoComposicionOrden;	
 	ArchivoMovimientos archivoMovimientos;
 	ArchivoOrdenCompra archivoOrdenCompra;
-	ArchivoOrdenProduccion archivoOrdenProduccion;
 	ArchivoOrdenVenta archivoOrdenVenta;
-	ArchivoProveedor archivoProveedor;
-	ArchivoRecurso archivoRecurso;
 	ArchivoUsuario archivoUsuario;
 	char _rolUsuario;	
 	std::string _nombreUsuario;

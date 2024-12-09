@@ -21,24 +21,19 @@ void Menu::menuPrincipal(Manager& manager, UiConsole& ui)
 			this->menuProductos(manager, ui);
 			break;
 		case 3:
-			this->menuProveedores(manager, ui);
-			break;
-		case 4:
 			this->menuClientes(manager, ui);
 			break;
-		case 5:
-			this->menuProduccion(manager, ui);
-			break;
-		case 6:
+
+		case 4:
 			this->menuVentas(manager, ui);
 			break;
-		case 7:
+		case 5:
 			this->menuUsuarios(manager, ui);
 			break;
-		case 8:
+		case 6:
 			this->menuEstadisticas(manager, ui);
 			break;
-		case 9:
+		case 7:
 			this->menuSeguridad(manager, ui);
 			break;
 		case 0:
@@ -236,14 +231,14 @@ void Menu::menuProductos(Manager& manager, UiConsole& ui)
 			std::cout << "Valor nuevo del producto : " << std::endl;
 			Recurso productoModificado = ui.agregarRecurso(codigo, false);
 			productoModificado.setOrigen(true);
-			if (manager.modificarInsumo(productoModificado, pos))
+			/*if (manager.modificarInsumo(productoModificado, pos))
 			{
 				std::cout << "Producto modificado correctamente" << std::endl;
 			}
 			else
 			{
 				std::cout << "No se pudo modificar el Producto" << std::endl;
-			}
+			}*/
 			ui.pausa();
 			return;
 		};
@@ -301,14 +296,14 @@ void Menu::menuProductos(Manager& manager, UiConsole& ui)
 				ui.pausa();
 				return;
 			}
-			if (manager.modificarStockInsumo(stock, pos))
+			/*if (manager.modificarStockInsumo(stock, pos))
 			{
 				std::cout << "Stock modificado correctamente" << std::endl;
 			}
 			else
 			{
 				std::cout << "No se pudo modificar el stock" << std::endl;
-			}
+			}*/
 			ui.pausa();
 			return;
 		};
@@ -374,177 +369,7 @@ void Menu::menuProductos(Manager& manager, UiConsole& ui)
 			ui.pausa();
 			return;
 		};
-	auto verComposicion = [&]() -> void
-		{
-			ui.limpiarConsola();
-			std::string codigoProducto = ui.pedirCodigo();
-			if (codigoProducto == "")
-			{
-				ui.pausa();
-				return;
-			}
-			int pos = manager.buscarProducto(codigoProducto);
-			if (pos == -3)
-			{
-				std::cout << "El codigo se esta usando como insumo" << std::endl;
-				ui.pausa();
-				return;
-			}
-			if (pos == -2)
-			{
-				std::cout << "El codigo esta mal escrito y no cumple con los criterios" << std::endl;
-				ui.pausa();
-				return;
-			}
-			if (pos == -4)
-			{
-				std::cout << "El producto esta borrado" << std::endl;
-				ui.pausa();
-				return;
-			}
-			if (pos < 0)
-			{
-				std::cout << "El producto no existe" << std::endl;
-				ui.pausa();
-				return;
-			}
-			Recurso* producto = new Recurso(manager.getRecurso(pos));
-			if (producto == nullptr)
-			{
-				std::cout << "no hay memoria disponible" << std::endl;
-				ui.pausa();
-				return;
-			}
-			int cantidadInsumos = 0;
-			Recurso* insumos = nullptr;
-			if (manager.getComposicionProducto(pos, insumos, cantidadInsumos, codigoProducto))
-			{
-				ui.mostrarComposicion(insumos, cantidadInsumos, producto);
-				delete[] insumos;
-			}
-			else
-			{
-				std::cout << "No hay composicion" << std::endl;
-			}
-			delete producto;
-			ui.pausa();
-		};
-	auto editarCoposicion = [&]() -> void
-		{
-			ui.limpiarConsola();
-			std::string codigoProducto = ui.pedirCodigo();
-			if (codigoProducto == "")
-			{
-				ui.pausa();
-				return;
-			}
-			int pos = manager.buscarProducto(codigoProducto);
-			if (pos == -3)
-			{
-				std::cout << "El codigo se esta usando como insumo" << std::endl;
-				ui.pausa();
-				return;
-			}
-			if (pos == -2)
-			{
-				std::cout << "El codigo esta mal escrito y no cumple con los criterios" << std::endl;
-				ui.pausa();
-				return;
-			}
-			if (pos == -4)
-			{
-				std::cout << "El producto esta borrado" << std::endl;
-				ui.pausa();
-				return;
-			}
-			if (pos < 0)
-			{
-				std::cout << "El producto no existe" << std::endl;
-				ui.pausa();
-				return;
-			}
 
-			bool result = true;
-			std::string codigoInsumo;
-			while (result)
-			{
-				ui.limpiarConsola();
-				// muestra la composicion actual
-				Recurso* producto = new Recurso(manager.getRecurso(pos));
-				if (producto == nullptr)
-				{
-					std::cout << "no hay memoria disponible" << std::endl;
-					ui.pausa();
-					return;
-				}
-				int cantidadInsumos = 0;
-				Recurso* insumos = nullptr;
-				if (manager.getComposicionProducto(pos, insumos, cantidadInsumos, codigoProducto))
-				{
-					ui.mostrarComposicion(insumos, cantidadInsumos, producto);
-					delete[] insumos;
-				}
-				else
-				{
-					ui.mostrarRecursos(producto, 1);
-					std::cout << "No hay composicion aun" << std::endl
-						<< std::endl;
-				}
-				delete producto;
-				//////////////////////////////////////////////////////////////////////////
-				std::cout << "Ingrese el codigo del insumo ->" << std::endl
-					<< std::endl;
-				std::string codigoInsumo = ui.pedirCodigo();
-				if (codigoInsumo == "")
-				{
-					std::cout << "codigo incorrecto, desea continuar con otro insumo?";
-				}
-				else
-				{
-					int posInsumo = manager.buscarInsumo(codigoInsumo);
-					if (posInsumo < 0)
-					{
-						std::cout << "El insumo no existe";
-					}
-					else
-					{
-						int cantidad;
-						std::cout << "Ingrese la cantidad: ";
-						if (!ui.pedirNumero(cantidad))
-						{
-							std::cout << "No se pudo agregar el insumo" << std::endl;
-						}
-						else if (manager.setComposicionProducto(codigoProducto, codigoInsumo, cantidad))
-						{
-							std::cout << "Insumo agregado correctamente" << std::endl;
-						}
-						else
-						{
-							std::cout << "El insumo ya esta en la composicion y/o No se puede agregar" << std::endl;
-						}
-					}
-				}
-				std::cout << "desea continuar con otro insumo?" << std::endl;
-				std::string op;
-				std::getline(std::cin, op);
-				if (op == "n" || op == "N")
-				{
-					result = false;
-				}
-				else if (op == "s" || op == "S")
-				{
-					result = true;
-				}
-				else
-				{
-					std::cout << "opcion incorrecta" << std::endl;
-					ui.pausa();
-					return;
-				}
-			}
-			ui.pausa();
-			return;
-		};
 	int op;
 	do
 	{
@@ -568,12 +393,6 @@ void Menu::menuProductos(Manager& manager, UiConsole& ui)
 			break;
 		case 6:
 			buscarProducto();
-			break;
-		case 7:
-			verComposicion();
-			break;
-		case 8:
-			editarCoposicion();
 			break;
 		case 0:
 			break;
@@ -847,37 +666,7 @@ void Menu::menuInsumo(Manager& manager, UiConsole& ui)
 
 	} while (op);
 }
-void Menu::menuProveedores(Manager& manager, UiConsole& ui)
-{
-	int op;
-	do
-	{
-		op = ui.mostrarMenuProveedores();
-		switch (op)
-		{
-		case 1:
-			break;
-		case 2:
-			break;
-		case 3:
-			break;
-		case 4:
-			break;
-		case 5:
-			break;
-		case 6:
-			break;
-		case 7:
-			break;
-		case 0:
-			break;
-		default:
-			ui.opcionIncorrecta();
-			break;
-		}
 
-	} while (op);
-}
 
 void Menu::menuClientes(Manager& manager, UiConsole& ui)
 {
@@ -895,8 +684,6 @@ void Menu::menuClientes(Manager& manager, UiConsole& ui)
 			break;
 		case 4:
 			break;
-		case 5:
-			break;
 		case 0:
 			break;
 		default:
@@ -907,31 +694,7 @@ void Menu::menuClientes(Manager& manager, UiConsole& ui)
 	} while (op);
 }
 
-void Menu::menuProduccion(Manager& manager, UiConsole& ui)
-{
-	int op;
-	do
-	{
-		op = ui.mostrarMenuProduccion();
-		switch (op)
-		{
-		case 1:
-			break;
-		case 2:
-			break;
-		case 3:
-			break;
-		case 4:
-			break;
-		case 0:
-			break;
-		default:
-			ui.opcionIncorrecta();
-			break;
-		}
 
-	} while (op);
-}
 
 void Menu::menuVentas(Manager& manager, UiConsole& ui)
 {
@@ -944,12 +707,6 @@ void Menu::menuVentas(Manager& manager, UiConsole& ui)
 		case 1:
 			break;
 		case 2:
-			break;
-		case 3:
-			break;
-		case 4:
-			break;
-		case 5:
 			break;
 		case 0:
 			break;
@@ -1588,48 +1345,48 @@ void Menu::menuUsuarios(Manager& manager, UiConsole& ui)
 
 		}
 		};
-		auto mostrarInformacionUsuario = [&]()->void {
-			ui.limpiarConsola();
-			if (!manager.esAdmin())
-			{
-				std::cout << UiConsole::ROJO << "No tiene privilegios para realizar esta acción." << UiConsole::RESET
-					<< std::endl;
-				ui.pausa();
-				return;
-			}
-
-
-			Usuario usuarioLoggeado = manager.getUsuarioLoggeado();
-			bool usuarioLoggeadoEsRoot = usuarioLoggeado.getNombreUsuario() == "root";
-
-			std::string nombreUsuario;
-			bool usuarioExiste = false;
-			bool volverAlMenuAnterior = false;
-			int posicionUsuario = -1;
-
-			while (!usuarioExiste) {
-				std::cout << "Ingrese el nombre del usuario a buscar o 'Q' para salir de este menu: ";
-				std::getline(std::cin, nombreUsuario);
-				volverAlMenuAnterior = UiConsole::volverAlMenuAnterior(nombreUsuario);
-				if (volverAlMenuAnterior) return;
-
-				posicionUsuario = manager.buscarUsuario(nombreUsuario, true);
-
-				if (posicionUsuario < 0)
-				{
-					std::cout << UiConsole::ROJO << "El usuario" << UiConsole::VERDE << "'" << nombreUsuario << "'"
-						<< UiConsole::ROJO << " no existe. Ingrese nuevamente un usuario." << UiConsole::RESET
-						<< std::endl;
-					continue;
-				}
-				usuarioExiste = true;
-			}
-
-
-			Usuario usuarioAMostrar = manager.leerUsuario(posicionUsuario);
-			ui.mostrarPerfil(usuarioAMostrar, usuarioLoggeadoEsRoot);
+	auto mostrarInformacionUsuario = [&]()->void {
+		ui.limpiarConsola();
+		if (!manager.esAdmin())
+		{
+			std::cout << UiConsole::ROJO << "No tiene privilegios para realizar esta acción." << UiConsole::RESET
+				<< std::endl;
 			ui.pausa();
-			};
+			return;
+		}
+
+
+		Usuario usuarioLoggeado = manager.getUsuarioLoggeado();
+		bool usuarioLoggeadoEsRoot = usuarioLoggeado.getNombreUsuario() == "root";
+
+		std::string nombreUsuario;
+		bool usuarioExiste = false;
+		bool volverAlMenuAnterior = false;
+		int posicionUsuario = -1;
+
+		while (!usuarioExiste) {
+			std::cout << "Ingrese el nombre del usuario a buscar o 'Q' para salir de este menu: ";
+			std::getline(std::cin, nombreUsuario);
+			volverAlMenuAnterior = UiConsole::volverAlMenuAnterior(nombreUsuario);
+			if (volverAlMenuAnterior) return;
+
+			posicionUsuario = manager.buscarUsuario(nombreUsuario, true);
+
+			if (posicionUsuario < 0)
+			{
+				std::cout << UiConsole::ROJO << "El usuario" << UiConsole::VERDE << "'" << nombreUsuario << "'"
+					<< UiConsole::ROJO << " no existe. Ingrese nuevamente un usuario." << UiConsole::RESET
+					<< std::endl;
+				continue;
+			}
+			usuarioExiste = true;
+		}
+
+
+		Usuario usuarioAMostrar = manager.leerUsuario(posicionUsuario);
+		ui.mostrarPerfil(usuarioAMostrar, usuarioLoggeadoEsRoot);
+		ui.pausa();
+		};
 
 	int opcion;
 	do
@@ -1685,10 +1442,6 @@ void Menu::menuEstadisticas(Manager& manager, UiConsole& ui)
 		case 2:
 			break;
 		case 3:
-			break;
-		case 4:
-			break;
-		case 5:
 			break;
 		case 0:
 			break;

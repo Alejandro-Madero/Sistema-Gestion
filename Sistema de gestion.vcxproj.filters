@@ -18,19 +18,10 @@
     <ClCompile Include="src\archivo-cliente.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\archivo-composicion-factura.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\archivo-composicion-movimientos.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\archivo-composicion-orden.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\archivo-composicion-producto.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\archivo-factura.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\archivo-movimientos.cpp">
@@ -39,13 +30,7 @@
     <ClCompile Include="src\archivo-orden-compra.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\archivo-orden-produccion.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\archivo-orden-venta.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\archivo-proveedor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\archivo-recurso.cpp">
@@ -55,9 +40,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\cliente.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\composicion-factura.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\composicion-movimientos.cpp">
@@ -96,9 +78,6 @@
     <ClCompile Include="src\persona.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\proveedor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\recurso.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -119,19 +98,10 @@
     <ClInclude Include="include\archivo-cliente.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\archivo-composicion-factura.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\archivo-composicion-movimiento.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\archivo-composicion-orden.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\archivo-composicion-producto.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\archivo-factura.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\archivo-movimientos.h">
@@ -140,13 +110,7 @@
     <ClInclude Include="include\archivo-orden-compra.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\archivo-orden-produccion.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\archivo-orden-venta.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\archivo-proveedor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\archivo-recursos.h">
@@ -158,16 +122,7 @@
     <ClInclude Include="include\cliente.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\composicion-factura.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\composicion-movimientos.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\composicion-orden.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\composicion-producto.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\factura.h">
@@ -195,12 +150,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\persona.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\proveedor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\recursos.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\ui-console.h">

@@ -4,35 +4,25 @@
 
 Manager::Manager() {
    this->_cacheListadoUsuarios = nullptr;  
-   this->archivoCliente = ArchivoCliente();
-   this->archivoComposicionFactura = ArchivoComposicionFactura();
+   this->archivoCliente = ArchivoCliente();   
    this->archivoComposicionMovimientos = ArchivoComposicionMovimientos();
-   this->archivoComposicionOrden = ArchivoComposicionOrden();
-   this->archivoComposicionProducto = ArchivoComposicionProducto();
-   this->archivoFactura = ArchivoFactura();
+   this->archivoComposicionOrden = ArchivoComposicionOrden(); 
    this->archivoMovimientos = ArchivoMovimientos();
-   this->archivoOrdenCompra = ArchivoOrdenCompra();
-   this->archivoOrdenProduccion = ArchivoOrdenProduccion();
+   this->archivoOrdenCompra = ArchivoOrdenCompra(); 
    this->archivoOrdenVenta = ArchivoOrdenVenta();
-   this->archivoProveedor = ArchivoProveedor();
-   this->archivoRecurso = ArchivoRecurso();
+   
    this->archivoUsuario = ArchivoUsuario();
    if (archivoUsuario.getCantidadRegistros() < 1) {
       if (_mkdir("db") != 0) {
         return; // Directorio creado exitosamente
       } 
       this->archivoCliente.Crear();
-      this->archivoComposicionFactura.Crear();
+    
       this->archivoComposicionMovimientos.Crear();
-      this->archivoComposicionOrden.Crear();
-      this->archivoComposicionProducto.Crear();
-      this->archivoFactura.Crear();
+      this->archivoComposicionOrden.Crear();   
       this->archivoMovimientos.Crear();
-      this->archivoOrdenCompra.Crear();
-      this->archivoOrdenProduccion.Crear();
-      this->archivoOrdenVenta.Crear();
-      this->archivoProveedor.Crear();
-      this->archivoRecurso.Crear();
+      this->archivoOrdenCompra.Crear();     
+      this->archivoOrdenVenta.Crear();     
       this->archivoUsuario.Crear();
       this->archivoUsuario.Guardar(Usuario('a',"pass","root",Fecha(1,1,2000),0,"0", 'F', "root", "root", "root"));
    }
@@ -189,257 +179,64 @@ bool Manager::esVendedor() {
 }
 
 // funcionalidades insumos
-int Manager::agregarInsumo(Recurso recurso) {
-   recurso.setOrigen(false);
-   return this->archivoRecurso.Guardar(recurso);
-}
 
-bool Manager::borrarInsumo(int pos) {
 
-   Recurso rs = this->archivoRecurso.Leer(pos);
-   rs.setEstaBorrado(true);
-   return this->archivoRecurso.Guardar(rs, pos);
-}
-int Manager::buscarInsumo(std::string codigo) {
-   if (codigo.length() > 20 || codigo.length() == 0) {
-      return -2;//ingreso mal el codigo por teclado
-   }
-   int pos = this->archivoRecurso.Buscar(codigo);
-   if(pos== -1){
-      return pos;//no existe el insumo, devuelve -1
-   }
-   if(this->archivoRecurso.Leer(pos).getEstaBorrado()){
-      return -4;//el recurso esta borrado
-   }
-   if (this->archivoRecurso.Leer(pos).isProducto()) {
-      return -3;//codigo que existe pero es un producto
-   }
-   return pos;
-}
-bool Manager::estaBorrado(int pos) {
-   return this->archivoRecurso.Leer(pos).getEstaBorrado();
-}
-bool Manager::modificarInsumo(Recurso insumo, int pos) {
-   return this->archivoRecurso.Guardar(insumo, pos);
-}
+
 
 bool Manager::listaRecursos(int pos, int cant, bool isProducto, bool borrado, Recurso*& vector, int &vectorSize) {
    
-   int cantRegistros = this->archivoRecurso.CantidadRegistros();
-   if(cantRegistros == 0){
-      return false;
-   }
-   if(cant == 0){
-      cant = cantRegistros;
-   }
-   Recurso* vectorTemp = new Recurso[cantRegistros];
-   this->archivoRecurso.Leer(cant, vectorTemp);
-   if (vectorTemp == nullptr) {
-      return false;
-   }
-   int counter = 0;
-   if(isProducto && !borrado){//producto no borrado
-      for (int i = 0; i<cantRegistros; i++){
-         if(vectorTemp[i].isProducto() && !vectorTemp[i].getEstaBorrado()){
-            counter++;
-         }
-      }
-      vector = new Recurso[counter];
-      if(vector == nullptr){
-         vectorSize = 0;
-         delete[] vectorTemp;
-         return false;
-      }
-      vectorSize = counter;
-      counter = 0;
-      for(int i = 0; i < cantRegistros; i++){
-         if(vectorTemp[i].isProducto() && !vectorTemp[i].getEstaBorrado()){
-            vector[counter] = vectorTemp[i];
-            counter++;
-         }
-      }
-   } 
-   else if (isProducto && borrado) {//producto borrado
-      for (int i = 0; i<cantRegistros; i++){
-         if(vectorTemp[i].isProducto() && vectorTemp[i].getEstaBorrado()){
-            counter++;
-         }
-      }
-      vector = new Recurso[counter];
-      if(vector == nullptr){
-         vectorSize = 0;
-         delete[] vectorTemp;
-         return false;
-      }
-      vectorSize = counter;
-      counter = 0;
-      for(int i = 0; i < cantRegistros; i++){
-         if(vectorTemp[i].isProducto() && vectorTemp[i].getEstaBorrado()){
-            vector[counter] = vectorTemp[i];
-            counter++;
-         }
-      }
-   }
-   else if(!isProducto && !borrado){//insumo no borrado
-      for (int i = 0; i<cantRegistros; i++){
-         if(vectorTemp[i].isInsumo() && !vectorTemp[i].getEstaBorrado()){
-            counter++;
-         }
-      }
-      vector = new Recurso[counter];
-      if(vector == nullptr){
-         vectorSize = 0;
-         delete[] vectorTemp;
-         return false;
-      }
-      vectorSize = counter;
-      counter = 0;
-      for(int i = 0; i < cantRegistros; i++){
-         if(vectorTemp[i].isInsumo() && !vectorTemp[i].getEstaBorrado()){
-            vector[counter] = vectorTemp[i];
-            counter++;
-         }
-      }
-   }
-   else if(!isProducto && borrado){//insumo borrado
-      for (int i = 0; i<cantRegistros; i++){
-         if(vectorTemp[i].isInsumo() && vectorTemp[i].getEstaBorrado()){
-            counter++;
-         }
-      }
-      vector = new Recurso[counter];
-      if(vector == nullptr){
-         vectorSize = 0;
-         delete[] vectorTemp;
-         return false;
-      }
-      vectorSize = counter;
-      counter = 0;
-      for(int i = 0; i < cantRegistros; i++){
-         if(vectorTemp[i].isInsumo() && vectorTemp[i].getEstaBorrado()){
-            vector[counter] = vectorTemp[i];
-            counter++;
-         }
-      }
-   }
-   delete[] vectorTemp;
-   return true;
+	return true; 
 }
 
-Recurso Manager::getRecurso(int pos) {
-   return this->archivoRecurso.Leer(pos);
-}
 
-bool Manager::modificarStockInsumo(int stock, int pos) {
-   Recurso recurso = this->archivoRecurso.Leer(pos);
-   recurso.setStock(stock);
-   return this->archivoRecurso.Guardar(recurso, pos);
-}
+
 
 // funcionalidades productos
 
 int Manager::buscarProducto(std::string codigo) {
-   if (codigo.length() > 20 || codigo.length() == 0) {
-      return -2;
-   }
-   int pos = this->archivoRecurso.Buscar(codigo);
-   if(pos== -1){
-      return pos;
-   }
-   Recurso producto = this->archivoRecurso.Leer(pos);
-   if (!producto.isProducto()) {
-      return -3;//el codigo existe pero es un insumo
-   }
-   if(producto.getEstaBorrado()){
-      return -4;//el producto fue borrado previamente
-   }
-   return pos;
+	return 1;
 }
 
 int Manager::agregarProducto(Recurso producto) {
-   producto.setOrigen(true);
-   return this->archivoRecurso.Guardar(producto);
+	return 1;
 }
 
 bool Manager::borrarProducto(int pos) {
-   return this->borrarInsumo(pos);
+  // return this->borrarInsumo(pos);
+
+	return true;
 }
 bool Manager::modificarStockRecurso(int stock, int pos) {
-   return this->modificarStockInsumo(stock, pos);
+    ////return this->modificarStockInsumo(stock, pos);
+	return true;
 }
 
-bool Manager::getComposicionProducto(int pos,Recurso*& vector,int& composicionSize,std::string codigo) {
-   ComposicionProducto* allComposicion = nullptr;
-   int totalSize = 0;
-   this->archivoComposicionProducto.LeerTodo(allComposicion,totalSize);
-   if(totalSize == 0 || allComposicion == nullptr){
-      return false;
-   }
-   int counter = 0;
-   //verifico que exista composiciones con el codigo del producto solicitado
-   for(int i = 0; i < totalSize; i++){
-      if(allComposicion[i].getIdProducto()== codigo){
-         counter++;
-      }
-   }
-   if(counter == 0){
-      composicionSize = 0;
-      delete[] allComposicion;
-      return false;
-   }
-   std::string* codigos = new std::string[counter];
-   int* cantidades = new int[counter];
-   if(codigos == nullptr){
-      composicionSize = 0;
-      delete[] allComposicion;
-      return false;
-   }
-   counter = 0;
-   //como hay composiciones que tienen el codigo solicitado los copio los codigos de los insumos en
-   //una matriz de string de codigos
-   //el contador en este caso me cuenta solo los insumos
-   for(int i = 0; i < totalSize; i++){
-      if(allComposicion[i].getIdProducto()== codigo){
-         codigos[counter] = allComposicion[i].getIdInsumo();
-         cantidades[counter] = allComposicion[i].getCantidad();
-         counter++;
-      }
-   }
 
-   vector = new Recurso[counter];
-   if(vector == nullptr){
-      composicionSize = 0;
-      delete[] allComposicion;
-      delete[] codigos;
-      return false;
-   }
-   composicionSize = counter;
-   counter = 0;
-   int posInsumo = 0;
-   //ahora en base al vector de codigos de insumo armo un vector de 
-   //objetos recursos con todos los codigos de los insumos que lleva la cosa
-   for(int i = 0; i < composicionSize; i++){
-      posInsumo = this->buscarInsumo(codigos[i]);
-      vector[i] = this->getRecurso(posInsumo);
-      vector[i].setFuturo(cantidades[i]);
-   }
-   delete[] codigos;
-   delete[] allComposicion;
-   return true;
-}
-bool Manager::setComposicionProducto(std::string idProducto, std::string idInsumo, int cantidad) {
-   ComposicionProducto composicion(idProducto,idInsumo,cantidad);
-   if(this->archivoComposicionProducto.Buscar(composicion.getId())<0){
-      return this->archivoComposicionProducto.Guardar(composicion);
-   }
-   return false;
-}
+
 
 
 Usuario Manager::getUsuarioLoggeado() {
-    return this->_usuarioLoggeado; 
+    return this->_usuarioLoggeado;
 }
 
+
 void Manager::setUsarioLoggeado(Usuario usuario) {
-    this->_usuarioLoggeado = usuario; 
+    this->_usuarioLoggeado = usuario;
 }
+
+Recurso Manager::getRecurso(int pos) {
+	return Recurso();
+}
+	int Manager::buscarInsumo(std::string codigo) {
+		return 1;
+	};
+
+int Manager::agregarInsumo(Recurso insumo) {
+	return 1;
+};
+
+bool Manager::borrarInsumo(int pos) { return true; };
+bool Manager::modificarInsumo(Recurso insumo, int pos) {
+	return true;
+}
+bool Manager::modificarStockInsumo(int stock, int pos) { return true; };

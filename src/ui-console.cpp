@@ -203,63 +203,32 @@ int UiConsole::mostrarMenuPrincipal()
 
 	std::cout << ROJO << "1. " << RESET << SUBRAYADO << BOLD << "Gestión de Insumos" << std::endl;
 	std::cout << RESET << ROJO << "2. " << RESET << SUBRAYADO << BOLD << "Gestión de Productos" << std::endl;
-	std::cout << RESET << ROJO << "3. " << RESET << SUBRAYADO << BOLD << "Gestion de Proveedores" << std::endl;
-	std::cout << RESET << ROJO << "4. " << RESET << SUBRAYADO << BOLD << "Gestion de Clientes" << std::endl;
-	std::cout << RESET << ROJO << "5. " << RESET << SUBRAYADO << BOLD << "Gestion de Produccion" << std::endl;
-	std::cout << RESET << ROJO << "6. " << RESET << SUBRAYADO << BOLD << "Gestion de Ventas" << std::endl;
-	std::cout << RESET << ROJO << "7. " << RESET << SUBRAYADO << BOLD << "Gestion de Usuarios" << std::endl;
-	std::cout << RESET << ROJO << "8. " << RESET << SUBRAYADO << BOLD << "Estadisticas" << std::endl;
-	std::cout << RESET << ROJO << "9. " << RESET << SUBRAYADO << BOLD << "Seguridad" << std::endl;
+	std::cout << RESET << ROJO << "3. " << RESET << SUBRAYADO << BOLD << "Gestion de Clientes" << std::endl;
+	std::cout << RESET << ROJO << "4. " << RESET << SUBRAYADO << BOLD << "Gestion de Ventas" << std::endl;
+	std::cout << RESET << ROJO << "5. " << RESET << SUBRAYADO << BOLD << "Gestion de Usuarios" << std::endl;
+	std::cout << RESET << ROJO << "6. " << RESET << SUBRAYADO << BOLD << "Estadisticas" << std::endl;
+	std::cout << RESET << ROJO << "7. " << RESET << SUBRAYADO << BOLD << "Seguridad" << std::endl;
 	std::cout << RESET << "0. " << SUBRAYADO << BOLD << "Salir" << RESET << std::endl
 		<< std::endl;
 	std::cout << "Opción elegida: ";
 
-	std::string op;
-	std::getline(std::cin, op);
-	if (op == "0")
-	{
-		return 0;
+	std::string opcion;
+	std::getline(std::cin, opcion);
+
+	try {
+		int numero = std::stoi(opcion);
+		if (numero >= 0 && numero < 8) {
+			return numero;
+		}
+		else {
+			return -1;
+		}
 	}
-	else if (op == "1")
-	{
-		return 1;
-	}
-	else if (op == "2")
-	{
-		return 2;
-	}
-	else if (op == "3")
-	{
-		return 3;
-	}
-	else if (op == "4")
-	{
-		return 4;
-	}
-	else if (op == "5")
-	{
-		return 5;
-	}
-	else if (op == "6")
-	{
-		return 6;
-	}
-	else if (op == "7")
-	{
-		return 7;
-	}
-	else if (op == "8")
-	{
-		return 8;
-	}
-	else if (op == "9")
-	{
-		return 9;
-	}
-	else
-	{
+	catch (const std::invalid_argument& e) {
 		return -1;
 	}
+
+
 }
 
 int UiConsole::mostrarMenuInsumos()
@@ -325,54 +294,26 @@ int UiConsole::mostrarMenuProductos()
 	std::cout << RESET << ROJO << "4. " << RESET << SUBRAYADO << BOLD << "Actualizar stock de producto" << std::endl;
 	std::cout << RESET << ROJO << "5. " << RESET << SUBRAYADO << BOLD << "Listar productos" << std::endl;
 	std::cout << RESET << ROJO << "6. " << RESET << SUBRAYADO << BOLD << "Buscar producto" << std::endl;
-	std::cout << RESET << ROJO << "7. " << RESET << SUBRAYADO << BOLD << "ver Composicion de producto" << std::endl;
-	std::cout << RESET << ROJO << "8. " << RESET << SUBRAYADO << BOLD << "editar Composicion de Producto" << std::endl;
 	std::cout << RESET << "0. " << SUBRAYADO << BOLD << "Volver al menú principal" << RESET << std::endl
 		<< std::endl;
 	std::cout << "Opción elegida: ";
 
-	std::string op;
-	std::getline(std::cin, op);
-	if (op == "0")
-	{
-		return 0;
+	std::string opcion;
+	std::getline(std::cin, opcion);
+
+	try {
+		int numero = std::stoi(opcion);
+		if (numero >= 0 && numero < 7) {
+			return numero;
+		}
+		else {
+			return -1;
+		}
 	}
-	else if (op == "1")
-	{
-		return 1;
-	}
-	else if (op == "2")
-	{
-		return 2;
-	}
-	else if (op == "3")
-	{
-		return 3;
-	}
-	else if (op == "4")
-	{
-		return 4;
-	}
-	else if (op == "5")
-	{
-		return 5;
-	}
-	else if (op == "6")
-	{
-		return 6;
-	}
-	else if (op == "7")
-	{
-		return 7;
-	}
-	else if (op == "8")
-	{
-		return 8;
-	}
-	else
-	{
+	catch (const std::invalid_argument& e) {
 		return -1;
 	}
+
 }
 
 int UiConsole::mostrarMenuProveedores()
@@ -380,7 +321,6 @@ int UiConsole::mostrarMenuProveedores()
 	limpiarConsola();
 	std::cout << BOLD << "Usuario: " << VERDE << _nombreUsuario << RESET;
 	std::cout << MENU_PROVEEDORES << std::endl;
-
 	std::cout << ROJO << "1. " << RESET << SUBRAYADO << BOLD << "Agregar proveedor" << std::endl;
 	std::cout << RESET << ROJO << "2. " << RESET << SUBRAYADO << BOLD << "Modificar proveedor" << std::endl;
 	std::cout << RESET << ROJO << "3. " << RESET << SUBRAYADO << BOLD << "Eliminar proveedor" << std::endl;
@@ -442,40 +382,23 @@ int UiConsole::mostrarMenuClientes()
 	std::cout << RESET << ROJO << "2. " << RESET << SUBRAYADO << BOLD << "Modificar cliente" << std::endl;
 	std::cout << RESET << ROJO << "3. " << RESET << SUBRAYADO << BOLD << "Eliminar cliente" << std::endl;
 	std::cout << RESET << ROJO << "4. " << RESET << SUBRAYADO << BOLD << "Consultar cliente" << std::endl;
-	std::cout << RESET << ROJO << "5. " << RESET << SUBRAYADO << BOLD << "Historial de devoluciones de clientes"
-		<< std::endl;
 	std::cout << RESET << "0. " << SUBRAYADO << BOLD << "Volver al menú principal" << RESET << std::endl
 		<< std::endl;
 	std::cout << "Opción elegida: ";
 
-	std::string op;
-	std::getline(std::cin, op);
-	if (op == "0")
-	{
-		return 0;
+	std::string opcion;
+	std::getline(std::cin, opcion);
+
+	try {
+		int numero = std::stoi(opcion);
+		if (numero >= 0 && numero < 5) {
+			return numero;
+		}
+		else {
+			return -1;
+		}
 	}
-	else if (op == "1")
-	{
-		return 1;
-	}
-	else if (op == "2")
-	{
-		return 2;
-	}
-	else if (op == "3")
-	{
-		return 3;
-	}
-	else if (op == "4")
-	{
-		return 4;
-	}
-	else if (op == "5")
-	{
-		return 5;
-	}
-	else
-	{
+	catch (const std::invalid_argument e) {
 		return -1;
 	}
 }
@@ -527,47 +450,27 @@ int UiConsole::mostrarMenuVentas()
 {
 	limpiarConsola();
 	std::cout << BOLD << "Usuario: " << VERDE << _nombreUsuario << RESET;
-	std::cout << MENU_VENTAS_FACTURACION << std::endl;
-
-	std::cout << ROJO << "1. " << RESET << SUBRAYADO << BOLD << "Agregar factura" << std::endl;
-	std::cout << RESET << ROJO << "2. " << RESET << SUBRAYADO << BOLD << "Consultar facturas pendientes o pagadas"
-		<< std::endl;
-	std::cout << RESET << ROJO << "3. " << RESET << SUBRAYADO << BOLD << "Generar reporte de ventas" << std::endl;
-	std::cout << RESET << ROJO << "4. " << RESET << SUBRAYADO << BOLD << "Historial de ventas" << std::endl;
-	std::cout << RESET << ROJO << "5. " << RESET << SUBRAYADO << BOLD << "Registrar devolución de cliente" << std::endl;
+	std::cout << MENU_VENTAS_FACTURACION << std::endl;	
+	std::cout << RESET << ROJO << "1. " << RESET << SUBRAYADO << BOLD << "Generar reporte de ventas" << std::endl;
+	std::cout << RESET << ROJO << "2. " << RESET << SUBRAYADO << BOLD << "Historial de ventas" << std::endl;	
 	std::cout << RESET << "0. " << SUBRAYADO << BOLD << "Volver al menú principal" << RESET << std::endl
 		<< std::endl;
 	std::cout << "Opción elegida: ";
 
-	std::string op;
-	std::getline(std::cin, op);
-	if (op == "0")
-	{
-		return 0;
+	std::string opcion;
+	std::getline(std::cin, opcion);
+	
+	try {
+		int numero = std::stoi(opcion);
+		if (numero >= 0 && numero < 3) {
+			return numero;
+		}
+		else {
+			return -1; 
+		}
 	}
-	else if (op == "1")
-	{
-		return 1;
-	}
-	else if (op == "2")
-	{
-		return 2;
-	}
-	else if (op == "3")
-	{
-		return 3;
-	}
-	else if (op == "4")
-	{
-		return 4;
-	}
-	else if (op == "5")
-	{
-		return 5;
-	}
-	else
-	{
-		return -1;
+	catch (const std::invalid_argument& e) {
+		return -1; 
 	}
 }
 
@@ -615,44 +518,27 @@ int UiConsole::mostrarMenuEstadisticas()
 	std::cout << BOLD << "Usuario: " << VERDE << _nombreUsuario << RESET;
 	std::cout << MENU_ESTATISTICAS << std::endl;
 
-	std::cout << ROJO << "1. " << RESET << SUBRAYADO << BOLD << "Generar reporte de inventario" << std::endl;
-	std::cout << RESET << ROJO << "2. " << RESET << SUBRAYADO << BOLD << "Generar reporte de proveedores" << std::endl;
-	std::cout << RESET << ROJO << "3. " << RESET << SUBRAYADO << BOLD << "Generar reporte de clientes" << std::endl;
-	std::cout << RESET << ROJO << "4. " << RESET << SUBRAYADO << BOLD << "Generar reporte de producción" << std::endl;
-	std::cout << RESET << ROJO << "5. " << RESET << SUBRAYADO << BOLD << "Generar reporte de ventas" << std::endl;
+	std::cout << ROJO << "1. " << RESET << SUBRAYADO << BOLD << "Generar reporte de inventario productos" << std::endl;
+	std::cout << RESET << ROJO << "2. " << RESET << SUBRAYADO << BOLD << "Generar reporte de clientes" << std::endl;	
+	std::cout << RESET << ROJO << "3. " << RESET << SUBRAYADO << BOLD << "Generar reporte de ventas" << std::endl;
 	std::cout << RESET << "0. " << SUBRAYADO << BOLD << "Volver al menú principal" << RESET << std::endl
 		<< std::endl;
 	std::cout << "Opción elegida: ";
 
-	std::string op;
-	std::getline(std::cin, op);
-	if (op == "0")
-	{
-		return 0;
+	std::string opcion;
+	std::getline(std::cin, opcion);
+	
+	try {
+		int numero = std::stoi(opcion);
+		if (numero >= 0 && numero < 4) {
+			return numero;
+		}
+		else {
+			return -1; 
+		}
 	}
-	else if (op == "1")
-	{
-		return 1;
-	}
-	else if (op == "2")
-	{
-		return 2;
-	}
-	else if (op == "3")
-	{
-		return 3;
-	}
-	else if (op == "4")
-	{
-		return 4;
-	}
-	else if (op == "5")
-	{
-		return 5;
-	}
-	else
-	{
-		return -1;
+	catch (const std::invalid_argument& e) {
+		return -1; 
 	}
 }
 
@@ -846,7 +732,7 @@ int UiConsole::menuEditarMiPerfil(Usuario& usuarioLoggeado) {
 	std::cout << BOLD << "Usuario: " << VERDE << _nombreUsuario << RESET;
 	std::cout << MENU_EDITAR_USUARIO << std::endl;
 
-	this->mostrarPerfil(usuarioLoggeado, false); 	
+	this->mostrarPerfil(usuarioLoggeado, false);
 
 
 	std::cout << ROJO << "1. " << RESET << SUBRAYADO << BOLD << "Modificar nombre" << std::endl;
@@ -884,24 +770,25 @@ int UiConsole::menuEditarMiPerfil(Usuario& usuarioLoggeado) {
 void UiConsole::mostrarPerfil(Usuario& usuario, bool root) {
 
 	std::string usuarioActivo = usuario.getEstadoUsuario() == true ? "Si" : "No";
-	
-	std::cout << std::endl << VERDE << "Nombre de usuario: " << RESET << usuario.getNombreUsuario() << std::endl; 
+
+	std::cout << std::endl << VERDE << "Nombre de usuario: " << RESET << usuario.getNombreUsuario() << std::endl;
 	std::cout << VERDE << "Nombre: " << RESET << usuario.getNombre() << std::endl;
 	std::cout << VERDE << "Email: " << RESET << usuario.getEmail() << std::endl;
 	std::cout << VERDE << "Direccion: " << RESET << usuario.getDireccion() << std::endl;
 	std::cout << VERDE << "Telefono: " << RESET << usuario.getTelefono() << std::endl;
 	if (root) {
-		std::cout << VERDE << "Contraseña: " << RESET <<usuario.getPassword() << std::endl;	}
-	std::cout << VERDE << "Rol: " << RESET << mostrarRol(usuario.getRol()) << std::endl ; 
+		std::cout << VERDE << "Contraseña: " << RESET << usuario.getPassword() << std::endl;
+	}
+	std::cout << VERDE << "Rol: " << RESET << mostrarRol(usuario.getRol()) << std::endl;
 	std::cout << VERDE << "Perfil activo: " << RESET << usuarioActivo << std::endl << std::endl << std::endl;
 
 }
 
 std::string UiConsole::mostrarRol(char rol) {
-	if (rol == 'a' || rol == 'A') return "Administrador"; 
+	if (rol == 'a' || rol == 'A') return "Administrador";
 	if (rol == 'u' || rol == 'U') return "Usuario";
 	if (rol == 'c' || rol == 'C') return "Comprador";
-	if (rol == 'v' || rol == 'V') return "Vendedor"; 
+	if (rol == 'v' || rol == 'V') return "Vendedor";
 }
 
 int UiConsole::mostrarMenuModificacionUsuario(Usuario& usuario)
@@ -910,7 +797,7 @@ int UiConsole::mostrarMenuModificacionUsuario(Usuario& usuario)
 	std::cout << BOLD << "Usuario: " << VERDE << _nombreUsuario << RESET;
 	std::cout << MODIFICAR_USUARIO << std::endl;
 
-	this->mostrarPerfil(usuario, true); 
+	this->mostrarPerfil(usuario, true);
 
 	std::cout << ROJO << "1. " << RESET << SUBRAYADO << BOLD << "Nombre usuario" << std::endl;
 	std::cout << RESET << ROJO << "2. " << RESET << SUBRAYADO << BOLD << "Nombre completo" << std::endl;
@@ -925,7 +812,7 @@ int UiConsole::mostrarMenuModificacionUsuario(Usuario& usuario)
 
 	std::string opcion;
 	std::getline(std::cin, opcion);
-	
+
 	try {
 		int numero = std::stoi(opcion);
 		if (numero >= 0 && numero < 8) {
@@ -1098,8 +985,8 @@ void UiConsole::procesarActualizacionUsuario(Manager& manager, Usuario& usuario,
 
 	bool usuarioGuardadoExitosamente = manager.reescribirUsuario(usuario, posicionUsuario);
 	if (usuarioGuardadoExitosamente) {
-		std::cout << VERDE << mensajeExito << RESET <<std::endl;
-		manager.actualizarCacheUsuarios();		
+		std::cout << VERDE << mensajeExito << RESET << std::endl;
+		manager.actualizarCacheUsuarios();
 		this->pausa();
 	}
 	else {
