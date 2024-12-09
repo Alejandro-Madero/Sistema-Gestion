@@ -1,5 +1,4 @@
 #include "../include/archivo-productos.h"
-
 #include <cstring>
 
 ArchivoProducto::ArchivoProducto() {}

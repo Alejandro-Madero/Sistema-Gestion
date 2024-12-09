@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="archivo.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\archivo-cliente.cpp" />
     <ClCompile Include="src\archivo-movimientos.cpp" />
@@ -40,6 +41,7 @@
     <ClCompile Include="src\usuario.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="archivo.h" />
     <ClInclude Include="include\archivo-cliente.h" />
     <ClInclude Include="include\archivo-movimientos.h" />
     <ClInclude Include="include\archivo-orden-compra.h" />

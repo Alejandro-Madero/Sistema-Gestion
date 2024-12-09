@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include  "usuario.h"
+#include "usuario.h"
 
 class ArchivoUsuario{
     public:
