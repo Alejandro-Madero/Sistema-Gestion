@@ -5,8 +5,7 @@
 Manager::Manager() {
    this->_cacheListadoUsuarios = nullptr;  
    this->archivoCliente = ArchivoCliente();   
-   this->archivoComposicionMovimientos = ArchivoComposicionMovimientos();
-   this->archivoComposicionOrden = ArchivoComposicionOrden(); 
+   
    this->archivoMovimientos = ArchivoMovimientos();
    this->archivoOrdenCompra = ArchivoOrdenCompra(); 
    this->archivoOrdenVenta = ArchivoOrdenVenta();
@@ -16,10 +15,7 @@ Manager::Manager() {
       if (_mkdir("db") != 0) {
         return; // Directorio creado exitosamente
       } 
-      this->archivoCliente.Crear();
-    
-      this->archivoComposicionMovimientos.Crear();
-      this->archivoComposicionOrden.Crear();   
+      this->archivoCliente.Crear();          
       this->archivoMovimientos.Crear();
       this->archivoOrdenCompra.Crear();     
       this->archivoOrdenVenta.Crear();     

@@ -21,24 +21,17 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\archivo-cliente.cpp" />
-    <ClCompile Include="src\archivo-composicion-movimientos.cpp" />
-    <ClCompile Include="src\archivo-composicion-orden.cpp" />
     <ClCompile Include="src\archivo-movimientos.cpp" />
     <ClCompile Include="src\archivo-orden-compra.cpp" />
     <ClCompile Include="src\archivo-orden-venta.cpp" />
     <ClCompile Include="src\archivo-recurso.cpp" />
     <ClCompile Include="src\archivo-usuario.cpp" />
     <ClCompile Include="src\cliente.cpp" />
-    <ClCompile Include="src\composicion-movimientos.cpp" />
-    <ClCompile Include="src\composicion-orden.cpp" />
-    <ClCompile Include="src\composicion-producto.cpp" />
-    <ClCompile Include="src\factura.cpp" />
     <ClCompile Include="src\fecha.cpp" />
     <ClCompile Include="src\manager.cpp" />
     <ClCompile Include="src\menu.cpp" />
     <ClCompile Include="src\movimientos.cpp" />
     <ClCompile Include="src\orden-compra.cpp" />
-    <ClCompile Include="src\orden-produccion.cpp" />
     <ClCompile Include="src\orden-venta.cpp" />
     <ClCompile Include="src\orden.cpp" />
     <ClCompile Include="src\persona.cpp" />
@@ -48,22 +41,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\archivo-cliente.h" />
-    <ClInclude Include="include\archivo-composicion-movimiento.h" />
-    <ClInclude Include="include\archivo-composicion-orden.h" />
     <ClInclude Include="include\archivo-movimientos.h" />
     <ClInclude Include="include\archivo-orden-compra.h" />
     <ClInclude Include="include\archivo-orden-venta.h" />
     <ClInclude Include="include\archivo-recursos.h" />
     <ClInclude Include="include\archivo-usuario.h" />
     <ClInclude Include="include\cliente.h" />
-    <ClInclude Include="include\composicion-movimientos.h" />
     <ClInclude Include="include\factura.h" />
     <ClInclude Include="include\fecha.h" />
     <ClInclude Include="include\manager.h" />
     <ClInclude Include="include\menu.h" />
     <ClInclude Include="include\movimientos.h" />
     <ClInclude Include="include\orden-compra.h" />
-    <ClInclude Include="include\orden-produccion.h" />
     <ClInclude Include="include\orden-venta.h" />
     <ClInclude Include="include\orden.h" />
     <ClInclude Include="include\persona.h" />

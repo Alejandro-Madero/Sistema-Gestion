@@ -7,20 +7,12 @@
 #include "usuario.h"
 #include "orden.h"
 #include "orden-compra.h"
-#include "orden-produccion.h"
 #include "orden-venta.h"
 #include "movimientos.h"
-#include "composicion-movimientos.h"
-#include "composicion-orden.h"
-#include "composicion-producto.h"
 #include "archivo-cliente.h"
-#include "archivo-composicion-movimiento.h"
-#include "archivo-composicion-orden.h"
 #include "archivo-movimientos.h"
 #include "archivo-orden-compra.h"
-#include "archivo-orden-produccion.h"
 #include "archivo-orden-venta.h"
-#include "archivo-proveedor.h"
 #include "archivo-recursos.h"
 #include "archivo-usuario.h"
 #include "manager.h"
@@ -71,9 +63,7 @@ public:
 	bool modificarStockRecurso(int stock, int pos);	
 	
 private:
-	ArchivoCliente archivoCliente;	
-	ArchivoComposicionMovimientos archivoComposicionMovimientos;
-	ArchivoComposicionOrden archivoComposicionOrden;	
+	ArchivoCliente archivoCliente;			
 	ArchivoMovimientos archivoMovimientos;
 	ArchivoOrdenCompra archivoOrdenCompra;
 	ArchivoOrdenVenta archivoOrdenVenta;

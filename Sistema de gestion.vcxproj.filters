@@ -18,12 +18,6 @@
     <ClCompile Include="src\archivo-cliente.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\archivo-composicion-movimientos.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\archivo-composicion-orden.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\archivo-movimientos.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -42,18 +36,6 @@
     <ClCompile Include="src\cliente.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\composicion-movimientos.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\composicion-orden.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\composicion-producto.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\factura.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\fecha.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -67,9 +49,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\orden-compra.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\orden-produccion.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\orden-venta.cpp">
@@ -98,12 +77,6 @@
     <ClInclude Include="include\archivo-cliente.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\archivo-composicion-movimiento.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\archivo-composicion-orden.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\archivo-movimientos.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -122,9 +95,6 @@
     <ClInclude Include="include\cliente.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\composicion-movimientos.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\factura.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -141,9 +111,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\orden-compra.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\orden-produccion.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\orden-venta.h">
